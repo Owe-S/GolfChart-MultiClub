@@ -2619,59 +2619,75 @@
 <li><strong>Klikkbare</strong> fullførte steg for rask navigering</li>
 <li><strong>Pulserende animasjon</strong> på gjeldende steg</li>
 </ul>
-<p><strong>Teknisk:</strong>
+<p><strong>Teknisk:</strong></p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="p">&lt;</span><span class="nt">ProgressSteps</span><span class="w"> </span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">  </span><span class="na">currentStep</span><span class="o">=</span><span class="p">{</span><span class="nx">currentStep</span><span class="p">}</span><span class="w"> </span>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">  </span><span class="na">totalSteps</span><span class="o">=</span><span class="p">{</span><span class="mf">4</span><span class="p">}</span>
 <a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">  </span><span class="na">onStepClick</span><span class="o">=</span><span class="p">{</span><span class="nx">goToStep</span><span class="p">}</span>
 <a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="p">/&gt;</span>
-</code></pre></div></p>
+</code></pre></div>
 <h4 id="2-steg-1-nar-hvor-lenge">2. Steg 1: Når &amp; Hvor Lenge<a class="headerlink" href="#2-steg-1-nar-hvor-lenge" title="Permanent link">&para;</a></h4>
-<p><strong>Forbedringer:</strong>
-- Visuell kortvelger for 9/18 hull
-- Prisforhåndsvisning per kategori
-- Bedre tid- og datovelger
-- Estimert varighet vises</p>
-<p><strong>CSS:</strong>
-- <code>.hole-selector</code> med responsive kort
-- Hover-effekter og animasjoner
-- Grønn markering for valgt alternativ</p>
+<p><strong>Forbedringer:</strong></p>
+<ul>
+<li>Visuell kortvelger for 9/18 hull</li>
+<li>Prisforhåndsvisning per kategori</li>
+<li>Bedre tid- og datovelger</li>
+<li>Estimert varighet vises</li>
+</ul>
+<p><strong>CSS:</strong></p>
+<ul>
+<li><code>.hole-selector</code> med responsive kort</li>
+<li>Hover-effekter og animasjoner</li>
+<li>Grønn markering for valgt alternativ</li>
+</ul>
 <h4 id="3-steg-2-velg-bil">3. Steg 2: Velg Bil<a class="headerlink" href="#3-steg-2-velg-bil" title="Permanent link">&para;</a></h4>
-<p><strong>Forbedringer:</strong>
-- Visuelt rutenett med golfbil-kort
-- Status-badges (Ledig/Opptatt/Ute av drift)
-- Filter for kun ledige biler
-- Teller for tilgjengelige biler
-- Disabled-overlay for utilgjengelige biler</p>
-<p><strong>CSS:</strong>
-- <code>.cart-grid</code> med responsive kolonner
-- <code>.cart-card</code> med hover-transformasjon
-- Streket mønster for utilgjengelige
-- Fargekodet status-system</p>
+<p><strong>Forbedringer:</strong></p>
+<ul>
+<li>Visuelt rutenett med golfbil-kort</li>
+<li>Status-badges (Ledig/Opptatt/Ute av drift)</li>
+<li>Filter for kun ledige biler</li>
+<li>Teller for tilgjengelige biler</li>
+<li>Disabled-overlay for utilgjengelige biler</li>
+</ul>
+<p><strong>CSS:</strong></p>
+<ul>
+<li><code>.cart-grid</code> med responsive kolonner</li>
+<li><code>.cart-card</code> med hover-transformasjon</li>
+<li>Streket mønster for utilgjengelige</li>
+<li>Fargekodet status-system</li>
+</ul>
 <h4 id="4-steg-3-dine-opplysninger">4. Steg 3: Dine Opplysninger<a class="headerlink" href="#4-steg-3-dine-opplysninger" title="Permanent link">&para;</a></h4>
-<p><strong>Forbedringer:</strong>
-- Live prisberegning med øyeblikkelige oppdateringer
-- Synlig priskort med breakdown
-- Rabatt-indikator for legeerklæring
-- Kontaktpreferanse-chips (E-post/SMS)
-- Bedre validering med inline-meldinger</p>
-<p><strong>CSS:</strong>
-- <code>.price-breakdown-card</code> med strukturert layout
-- <code>.preference-chip</code> for valg av kontaktmetode
-- Grønn farge på rabatter
-- Responsive skjemafelt</p>
+<p><strong>Forbedringer:</strong></p>
+<ul>
+<li>Live prisberegning med øyeblikkelige oppdateringer</li>
+<li>Synlig priskort med breakdown</li>
+<li>Rabatt-indikator for legeerklæring</li>
+<li>Kontaktpreferanse-chips (E-post/SMS)</li>
+<li>Bedre validering med inline-meldinger</li>
+</ul>
+<p><strong>CSS:</strong></p>
+<ul>
+<li><code>.price-breakdown-card</code> med strukturert layout</li>
+<li><code>.preference-chip</code> for valg av kontaktmetode</li>
+<li>Grønn farge på rabatter</li>
+<li>Responsive skjemafelt</li>
+</ul>
 <h4 id="5-steg-4-bekreft">5. Steg 4: Bekreft<a class="headerlink" href="#5-steg-4-bekreft" title="Permanent link">&para;</a></h4>
-<p><strong>Forbedringer:</strong>
-- Redigeringsknapper for hvert steg
-- Detaljert sammendrag delt i seksjoner
-- Vilkår og betingelser-checkbox
-- Gradient priskort med dramatisk design
-- Forbedret suksess-skjerm</p>
-<p><strong>CSS:</strong>
-- <code>.review-card</code> med seksjonert layout
-- <code>.edit-btn</code> med hover-skalering
-- <code>.price-summary-card</code> med gradient-bakgrunn
-- <code>.success-state</code> med bounce-animasjon</p>
+<p><strong>Forbedringer:</strong></p>
+<ul>
+<li>Redigeringsknapper for hvert steg</li>
+<li>Detaljert sammendrag delt i seksjoner</li>
+<li>Vilkår og betingelser-checkbox</li>
+<li>Gradient priskort med dramatisk design</li>
+<li>Forbedret suksess-skjerm</li>
+</ul>
+<p><strong>CSS:</strong></p>
+<ul>
+<li><code>.review-card</code> med seksjonert layout</li>
+<li><code>.edit-btn</code> med hover-skalering</li>
+<li><code>.price-summary-card</code> med gradient-bakgrunn</li>
+<li><code>.success-state</code> med bounce-animasjon</li>
+</ul>
 <h3 id="design-prinsipper">Design-prinsipper<a class="headerlink" href="#design-prinsipper" title="Permanent link">&para;</a></h3>
 <h4 id="farger">Farger<a class="headerlink" href="#farger" title="Permanent link">&para;</a></h4>
 <p>Ski Golfklubb-fargepalett:</p>
@@ -2920,7 +2936,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="December 3, 2025 12:35:03 UTC"><span class="timeago" datetime="2025-12-03T12:35:03+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="December 3, 2025 12:35:03 UTC">2025-12-03</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="December 3, 2025 12:38:04 UTC"><span class="timeago" datetime="2025-12-03T12:38:04+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="December 3, 2025 12:38:04 UTC">2025-12-03</span>
   </span>
 
     
@@ -2930,7 +2946,7 @@
     <span class="md-icon" title="Created">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="December 3, 2025 12:35:03 UTC"><span class="timeago" datetime="2025-12-03T12:35:03+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="December 3, 2025 12:35:03 UTC">2025-12-03</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="December 3, 2025 12:35:17 UTC"><span class="timeago" datetime="2025-12-03T12:35:17+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="December 3, 2025 12:35:17 UTC">2025-12-03</span>
   </span>
 
     
