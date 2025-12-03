@@ -1,0 +1,757 @@
+/* Status Colors */
+--status-available-bg: #E6F4EA;
+--status-available-text: #1E8E3E;
+--status-booked-bg: #FCE8E6;
+--status-booked-text: #C5221F;
+
+/* Spacing & Sizing */
+--space-xs: 4px;
+--space-sm: 8px;
+--space-md: 16px;
+--space-lg: 24px;
+--space-xl: 32px;
+
+--radius-sm: 8px;
+--radius-md: 12px;
+--radius-lg: 16px;
+
+--touch-target: 48px;
+}
+
+body {
+  background-color: var(--bg-color);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  color: var(--text-primary);
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Layout */
+.app-container {
+  max-width: 600px;
+  /* Mobile-first constraint */
+  margin: 0 auto;
+  min-height: 100vh;
+  background-color: var(--bg-color);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header */
+.app-header {
+  background-color: var(--ski-blue-dark);
+  color: white;
+  padding: var(--space-md) var(--space-lg);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.app-logo {
+  font-weight: 800;
+  font-size: 20px;
+  letter-spacing: -0.5px;
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+/* Cards */
+.card {
+  background: var(--card-bg);
+  border-radius: var(--radius-md);
+  padding: var(--space-lg);
+  margin-bottom: var(--space-md);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.card-title {
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0 0 var(--space-md) 0;
+  color: var(--ski-blue-dark);
+}
+
+/* Buttons */
+.btn {
+  height: 56px;
+  /* Large touch target */
+  border-radius: var(--radius-md);
+  border: none;
+  font-weight: 700;
+  font-size: 16px;
+  cursor: pointer;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.1s, background-color 0.2s;
+}
+
+.btn:active {
+  transform: scale(0.98);
+}
+
+.btn-primary {
+  background-color: var(--ski-gold);
+  color: var(--ski-blue-dark);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn-secondary {
+  background-color: white;
+  border: 2px solid var(--ski-blue-dark);
+  color: var(--ski-blue-dark);
+}
+
+.btn-text {
+  background: none;
+  color: var(--text-secondary);
+  height: auto;
+  padding: var(--space-sm);
+}
+
+/* Inputs */
+.input-group {
+  margin-bottom: var(--space-lg);
+}
+
+.input-label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: var(--space-sm);
+  color: var(--ski-blue-dark);
+}
+
+.input-field {
+  width: 100%;
+  height: 56px;
+  padding: 0 var(--space-md);
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  font-size: 16px;
+  background-color: white;
+  transition: border-color 0.2s;
+  box-sizing: border-box;
+}
+
+.input-field:focus {
+  outline: none;
+  border-color: var(--ski-blue-dark);
+}
+
+/* Stepper */
+.stepper-container {
+  padding: var(--space-md);
+}
+
+.progress-bar {
+  display: flex;
+  gap: var(--space-xs);
+  margin-bottom: var(--space-lg);
+}
+
+.progress-step {
+  height: 6px;
+  flex: 1;
+  background-color: var(--border-color);
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+.progress-step.active {
+  background-color: var(--ski-gold);
+}
+
+.progress-step.completed {
+  background-color: var(--ski-blue-dark);
+}
+
+/* Selection Chips */
+.chip-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+  gap: var(--space-sm);
+}
+
+.chip {
+  padding: var(--space-sm);
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  text-align: center;
+  font-weight: 600;
+  cursor: pointer;
+  background: white;
+}
+
+.chip.selected {
+  background-color: var(--ski-blue-dark);
+  color: white;
+  border-color: var(--ski-blue-dark);
+  --status-available-bg: #E6F4EA;
+  --status-available-text: #1E8E3E;
+  --status-booked-bg: #FCE8E6;
+  --status-booked-text: #C5221F;
+
+  /* Spacing & Sizing */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+
+  --touch-target: 48px;
+}
+
+body {
+  background-color: var(--bg-color);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  color: var(--text-primary);
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Layout */
+.app-container {
+  max-width: 600px;
+  /* Mobile-first constraint */
+  margin: 0 auto;
+  min-height: 100vh;
+  background-color: var(--bg-color);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header */
+.app-header {
+  background-color: var(--ski-blue-dark);
+  color: white;
+  padding: var(--space-md) var(--space-lg);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.app-logo {
+  font-weight: 800;
+  font-size: 20px;
+  letter-spacing: -0.5px;
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+/* Cards */
+.card {
+  background: var(--card-bg);
+  border-radius: var(--radius-md);
+  padding: var(--space-lg);
+  margin-bottom: var(--space-md);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.card-title {
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0 0 var(--space-md) 0;
+  color: var(--ski-blue-dark);
+}
+
+/* Buttons */
+.btn {
+  height: 56px;
+  /* Large touch target */
+  border-radius: var(--radius-md);
+  border: none;
+  font-weight: 700;
+  font-size: 16px;
+  cursor: pointer;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.1s, background-color 0.2s;
+}
+
+.btn:active {
+  transform: scale(0.98);
+}
+
+.btn-primary {
+  background-color: var(--ski-gold);
+  color: var(--ski-blue-dark);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn-secondary {
+  background-color: white;
+  border: 2px solid var(--ski-blue-dark);
+  color: var(--ski-blue-dark);
+}
+
+.btn-text {
+  background: none;
+  color: var(--text-secondary);
+  height: auto;
+  padding: var(--space-sm);
+}
+
+/* Inputs */
+.input-group {
+  margin-bottom: var(--space-lg);
+}
+
+.input-label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: var(--space-sm);
+  color: var(--ski-blue-dark);
+}
+
+.input-field {
+  width: 100%;
+  height: 56px;
+  padding: 0 var(--space-md);
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  font-size: 16px;
+  background-color: white;
+  transition: border-color 0.2s;
+  box-sizing: border-box;
+}
+
+.input-field:focus {
+  outline: none;
+  border-color: var(--ski-blue-dark);
+}
+
+/* Stepper */
+.stepper-container {
+  padding: var(--space-md);
+}
+
+.progress-bar {
+  display: flex;
+  gap: var(--space-xs);
+  margin-bottom: var(--space-lg);
+}
+
+.progress-step {
+  height: 6px;
+  flex: 1;
+  background-color: var(--border-color);
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+.progress-step.active {
+  background-color: var(--ski-gold);
+}
+
+.progress-step.completed {
+  background-color: var(--ski-blue-dark);
+}
+
+/* Selection Chips */
+.chip-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+  gap: var(--space-sm);
+}
+
+.chip {
+  padding: var(--space-sm);
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  text-align: center;
+  font-weight: 600;
+  cursor: pointer;
+  background: white;
+}
+
+.chip.selected {
+  background-color: var(--ski-blue-dark);
+  color: white;
+  border-color: var(--ski-blue-dark);
+}
+
+.chip:disabled {
+  opacity: 0.5;
+  background-color: #eee;
+  cursor: not-allowed;
+}
+
+/* Calendar Component */
+.ski-calendar {
+  background: white;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  border: 1px solid var(--border-color);
+}
+
+.ski-calendar-header {
+  background-color: var(--ski-gold);
+  padding: var(--space-md);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ski-calendar-month {
+  margin: 0;
+  color: var(--ski-blue-dark);
+  font-size: 18px;
+  font-weight: 700;
+  text-transform: capitalize;
+}
+
+.ski-calendar-nav-btn {
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: var(--ski-blue-dark);
+  cursor: pointer;
+  padding: 0 var(--space-sm);
+  font-weight: bold;
+}
+
+.ski-calendar-nav-btn:hover {
+  opacity: 0.7;
+}
+
+.ski-calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  padding: var(--space-sm);
+  gap: 2px;
+}
+
+.ski-calendar-day-name {
+  text-align: center;
+  font-weight: 600;
+  color: var(--text-secondary);
+  font-size: 12px;
+  padding: var(--space-xs);
+}
+
+.ski-calendar-day {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: all 0.2s;
+}
+
+.ski-calendar-day:hover:not(.empty):not(.disabled) {
+  background-color: var(--bg-color);
+  color: var(--ski-blue-dark);
+}
+
+.ski-calendar-day.selected {
+  background-color: var(--ski-blue-dark);
+  color: white;
+}
+
+.btn-primary {
+  background-color: var(--ski-gold);
+  color: var(--ski-blue-dark);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn-secondary {
+  background-color: white;
+  border: 2px solid var(--ski-blue-dark);
+  color: var(--ski-blue-dark);
+}
+
+.btn-text {
+  background: none;
+  color: var(--text-secondary);
+  height: auto;
+  padding: var(--space-sm);
+}
+
+/* Inputs */
+.input-group {
+  margin-bottom: var(--space-lg);
+}
+
+.input-label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: var(--space-sm);
+  color: var(--ski-blue-dark);
+}
+
+.input-field {
+  width: 100%;
+  height: 56px;
+  padding: 0 var(--space-md);
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  font-size: 16px;
+  background-color: white;
+  transition: border-color 0.2s;
+  box-sizing: border-box;
+}
+
+.input-field:focus {
+  outline: none;
+  border-color: var(--ski-blue-dark);
+}
+
+/* Stepper */
+.stepper-container {
+  padding: var(--space-md);
+}
+
+.progress-bar {
+  display: flex;
+  gap: var(--space-xs);
+  margin-bottom: var(--space-lg);
+}
+
+.progress-step {
+  height: 6px;
+  flex: 1;
+  background-color: var(--border-color);
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+.progress-step.active {
+  background-color: var(--ski-gold);
+}
+
+.progress-step.completed {
+  background-color: var(--ski-blue-dark);
+}
+
+/* Selection Chips */
+.chip-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+  gap: var(--space-sm);
+}
+
+.chip {
+  padding: var(--space-sm);
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  text-align: center;
+  font-weight: 600;
+  cursor: pointer;
+  background: white;
+}
+
+.chip.selected {
+  background-color: var(--ski-blue-dark);
+  color: white;
+  border-color: var(--ski-blue-dark);
+}
+
+.chip:disabled {
+  opacity: 0.5;
+  background-color: #eee;
+  cursor: not-allowed;
+}
+
+/* Calendar Component */
+.ski-calendar {
+  background: white;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  border: 1px solid var(--border-color);
+}
+
+.ski-calendar-header {
+  background-color: var(--ski-gold);
+  padding: var(--space-md);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ski-calendar-month {
+  margin: 0;
+  color: var(--ski-blue-dark);
+  font-size: 18px;
+  font-weight: 700;
+  text-transform: capitalize;
+}
+
+.ski-calendar-nav-btn {
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: var(--ski-blue-dark);
+  cursor: pointer;
+  padding: 0 var(--space-sm);
+  font-weight: bold;
+}
+
+.ski-calendar-nav-btn:hover {
+  opacity: 0.7;
+}
+
+.ski-calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  padding: var(--space-sm);
+  gap: 2px;
+}
+
+.ski-calendar-day-name {
+  text-align: center;
+  font-weight: 600;
+  color: var(--text-secondary);
+  font-size: 12px;
+  padding: var(--space-xs);
+}
+
+.ski-calendar-day {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: all 0.2s;
+}
+
+.ski-calendar-day:hover:not(.empty):not(.disabled) {
+  background-color: var(--bg-color);
+  color: var(--ski-blue-dark);
+}
+
+.ski-calendar-day.selected {
+  background-color: var(--ski-blue-dark);
+  color: white;
+}
+
+.ski-calendar-day.today {
+  border: 2px solid var(--ski-gold);
+}
+
+.ski-calendar-day.disabled {
+  color: #ccc;
+  cursor: not-allowed;
+}
+
+.ski-calendar-day.empty {
+  cursor: default;
+}
+
+
+/* Availability Grid */
+.ski-availability-grid {
+  display: grid;
+  grid-template-columns: 60px repeat(5, 1fr);
+  gap: 1px;
+  background-color: var(--border-color);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  margin-top: var(--space-md);
+}
+
+.ski-grid-header {
+  background-color: var(--ski-blue-dark);
+  color: white;
+  padding: var(--space-sm);
+  font-size: 12px;
+  font-weight: bold;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ski-grid-time {
+  background-color: var(--ski-blue-light);
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ski-grid-cell {
+  background-color: white;
+  height: 40px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.ski-grid-cell:hover {
+  filter: brightness(0.95);
+}
+
+.ski-grid-cell.available {
+  background-color: var(--status-available-bg);
+}
+
+max-width: 1200px;
+flex-direction: row;
+align-items: flex-start;
+padding: var(--space-lg);
+gap: var(--space-lg);
+}
+
+.app-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+}
+
+.left-panel {
+  flex: 4;
+  position: sticky;
+  top: 100px;
+}
+
+.right-panel {
+  flex: 6;
+  margin-top: 80px;
+  /* Offset for fixed header */
+}
+
+/* Adjust stepper container for desktop */
+.stepper-container {
+  padding: 0;
+}
+}
+
+@media (max-width: 767px) {
+  .left-panel {
+    display: none;
+    /* Hide visualization on mobile for now, or stack it */
+  }
+}
