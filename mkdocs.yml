@@ -85,6 +85,8 @@ nav:
     - Firestore struktur: api/firestore.md
   - Admin UI:
     - Komponenter: admin-ui/components.md
+    - Bookingflyt: admin-ui/booking-flow.md
+    - UI/UX-forbedringer: admin-ui/ui-improvements.md
     - Routing: admin-ui/routing.md
     - State management: admin-ui/state.md
   - Deployment:
