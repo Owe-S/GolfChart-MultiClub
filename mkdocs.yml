@@ -72,6 +72,7 @@ nav:
   - Kom i gang:
     - Oversikt: getting-started/overview.md
     - Firebase oppsett: getting-started/firebase-setup.md
+    - Firestore Database: getting-started/firestore-setup.md
     - Lokal utvikling: getting-started/local-dev.md
   - Arkitektur:
     - Systemarkitektur: architecture/system.md
@@ -80,6 +81,7 @@ nav:
     - Multi-klubb design: architecture/multi-tenant.md
   - Admin API:
     - Oversikt: api/overview.md
+    - HTTP Functions: api/http-functions.md
     - Autentisering: api/auth.md
     - Cloud Functions: api/functions.md
     - Firestore struktur: api/firestore.md
@@ -90,6 +92,8 @@ nav:
     - Routing: admin-ui/routing.md
     - State management: admin-ui/state.md
   - Deployment:
+    - GDPR Compliance: deployment/gdpr-compliance.md
+    - CSS Fixes (Dec 2025): deployment/css-fixes-dec2025.md
     - CI/CD pipeline: deployment/cicd.md
     - Miljøer: deployment/environments.md
     - Rollback prosedyre: deployment/rollback.md
