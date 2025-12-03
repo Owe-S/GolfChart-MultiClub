@@ -7,8 +7,7 @@ import {
     where,
     orderBy
 } from 'firebase/firestore';
-import { httpsCallable } from 'firebase/functions';
-import { db, functions } from './firebase';
+import { db } from './firebase';
 import type { GolfCart, Rental, CartStatus } from './types';
 
 // Collection references
@@ -29,14 +28,21 @@ export const getCarts = async (): Promise<GolfCart[]> => {
 };
 
 /**
- * Checks availability for a specific date and time using Cloud Function
+ * Checks availability for a specific date and time via HTTP Cloud Function
  */
 export const checkAvailability = async (date: string, time: string, holes: 9 | 18): Promise<{ available: number, availableCartIds: number[] }> => {
     try {
-        const checkAvailabilityFn = httpsCallable(functions, 'checkAvailability');
-        const result = await checkAvailabilityFn({ date, time, holes });
-        const data = result.data as { availableCartIds: number[] };
+        const region = 'europe-west1';
+        const projectId = 'golfbilkontroll-skigk';
+        const baseUrl = `https://${region}-${projectId}.cloudfunctions.net`;
+        const url = `${baseUrl}/checkAvailability?date=${encodeURIComponent(date)}&time=${encodeURIComponent(time)}&holes=${holes}`;
 
+        const resp = await fetch(url, { method: 'GET' });
+        if (!resp.ok) {
+            const errText = await resp.text();
+            throw new Error(`checkAvailability failed: ${resp.status} ${errText}`);
+        }
+        const data = await resp.json() as { availableCartIds: number[] };
         return {
             available: data.availableCartIds.length,
             availableCartIds: data.availableCartIds
@@ -48,13 +54,25 @@ export const checkAvailability = async (date: string, time: string, holes: 9 | 1
 };
 
 /**
- * Creates a new rental booking using Cloud Function (Transactional)
+ * Creates a new rental booking via HTTP Cloud Function (Transactional)
  */
 export const createRental = async (rentalData: Omit<Rental, 'id' | 'createdAt'>): Promise<string> => {
     try {
-        const createRentalFn = httpsCallable(functions, 'createRental');
-        const result = await createRentalFn(rentalData);
-        const data = result.data as { success: boolean, rentalId: string };
+        const region = 'europe-west1';
+        const projectId = 'golfbilkontroll-skigk';
+        const baseUrl = `https://${region}-${projectId}.cloudfunctions.net`;
+        const url = `${baseUrl}/createRental`;
+
+        const resp = await fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(rentalData)
+        });
+        if (!resp.ok) {
+            const errText = await resp.text();
+            throw new Error(`createRental failed: ${resp.status} ${errText}`);
+        }
+        const data = await resp.json() as { success: boolean, rentalId: string };
         return data.rentalId;
     } catch (error) {
         console.error("Error creating rental:", error);

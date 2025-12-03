@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react';
 import '../ski-gk-theme.css';
 
 interface Step {
@@ -14,6 +15,8 @@ interface ProgressStepsProps {
 }
 
 function ProgressSteps({ currentStep, totalSteps, onStepClick }: ProgressStepsProps) {
+  const progressRef = useRef<HTMLDivElement>(null);
+  
   const stepTitles = [
     { title: 'Når & Varighet', icon: '📅' },
     { title: 'Velg Bil', icon: '🚗' },
@@ -43,6 +46,12 @@ function ProgressSteps({ currentStep, totalSteps, onStepClick }: ProgressStepsPr
 
   const progressPercentage = ((currentStep - 1) / (totalSteps - 1)) * 100;
 
+  useEffect(() => {
+    if (progressRef.current) {
+      progressRef.current.style.transform = `scaleX(${progressPercentage / 100})`;
+    }
+  }, [progressPercentage]);
+
   const handleStepClick = (stepNumber: number) => {
     // Only allow going back to completed steps
     if (stepNumber < currentStep && onStepClick) {
@@ -55,8 +64,8 @@ function ProgressSteps({ currentStep, totalSteps, onStepClick }: ProgressStepsPr
       {/* Progress bar background */}
       <div className="progress-track">
         <div 
-          className="progress-fill" 
-          style={{ width: `${progressPercentage}%` }}
+          ref={progressRef}
+          className="progress-fill"
         />
       </div>
 

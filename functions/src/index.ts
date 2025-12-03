@@ -28,7 +28,7 @@ interface CreateRentalRequest {
  * Creates a new rental transactionally.
  * Prevents double-booking of the same cart.
  */
-export const createRental = functions.https.onRequest((req, res) => {
+export const createRental = functions.region('europe-west1').https.onRequest((req, res) => {
     corsHandler(req, res, async () => {
         if (req.method !== 'POST') {
             res.status(405).send('Method Not Allowed');
@@ -106,7 +106,7 @@ export const createRental = functions.https.onRequest((req, res) => {
  * Checks availability for a given date and time.
  * Returns a list of available cart IDs.
  */
-export const checkAvailability = functions.https.onRequest((req, res) => {
+export const checkAvailability = functions.region('europe-west1').https.onRequest((req, res) => {
     corsHandler(req, res, async () => {
         const { date, time, holes } = req.query;
 

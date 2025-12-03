@@ -1,21 +1,39 @@
-/* Status Colors */
---status-available-bg: #E6F4EA;
---status-available-text: #1E8E3E;
---status-booked-bg: #FCE8E6;
---status-booked-text: #C5221F;
+/* ===========================
+   Ski Golfklubb Theme Variables
+   =========================== */
 
-/* Spacing & Sizing */
---space-xs: 4px;
---space-sm: 8px;
---space-md: 16px;
---space-lg: 24px;
---space-xl: 32px;
+:root {
+  /* Brand Colors */
+  --ski-blue: #0066CC;
+  --ski-blue-dark: #003087;
+  --ski-green: #00A86B;
+  --ski-gold: #FFD700;
 
---radius-sm: 8px;
---radius-md: 12px;
---radius-lg: 16px;
+  /* Base Colors */
+  --bg-color: #F5F5F5;
+  --card-bg: #FFFFFF;
+  --text-primary: #1A1A1A;
+  --text-secondary: #666666;
+  --border-color: #E0E0E0;
 
---touch-target: 48px;
+  /* Status Colors */
+  --status-available-bg: #E6F4EA;
+  --status-available-text: #1E8E3E;
+  --status-booked-bg: #FCE8E6;
+  --status-booked-text: #C5221F;
+
+  /* Spacing & Sizing */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+
+  --touch-target: 48px;
 }
 
 body {
@@ -194,23 +212,6 @@ body {
   background-color: var(--ski-blue-dark);
   color: white;
   border-color: var(--ski-blue-dark);
-  --status-available-bg: #E6F4EA;
-  --status-available-text: #1E8E3E;
-  --status-booked-bg: #FCE8E6;
-  --status-booked-text: #C5221F;
-
-  /* Spacing & Sizing */
-  --space-xs: 4px;
-  --space-sm: 8px;
-  --space-md: 16px;
-  --space-lg: 24px;
-  --space-xl: 32px;
-
-  --radius-sm: 8px;
-  --radius-md: 12px;
-  --radius-lg: 16px;
-
-  --touch-target: 48px;
 }
 
 body {
@@ -716,37 +717,40 @@ body {
   background-color: var(--status-available-bg);
 }
 
-max-width: 1200px;
-flex-direction: row;
-align-items: flex-start;
-padding: var(--space-lg);
-gap: var(--space-lg);
-}
+/* Desktop layout (min-width: 768px) */
+@media (min-width: 768px) {
+  .app-container {
+    max-width: 1200px;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: var(--space-lg);
+    gap: var(--space-lg);
+  }
 
-.app-header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  width: 100%;
-}
+  .app-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+  }
 
-.left-panel {
-  flex: 4;
-  position: sticky;
-  top: 100px;
-}
+  .left-panel {
+    flex: 4;
+    position: sticky;
+    top: 100px;
+  }
 
-.right-panel {
-  flex: 6;
-  margin-top: 80px;
-  /* Offset for fixed header */
-}
+  .right-panel {
+    flex: 6;
+    margin-top: 80px;
+    /* Offset for fixed header */
+  }
 
-/* Adjust stepper container for desktop */
-.stepper-container {
-  padding: 0;
-}
+  /* Adjust stepper container for desktop */
+  .stepper-container {
+    padding: 0;
+  }
 }
 
 @media (max-width: 767px) {
@@ -782,7 +786,9 @@ gap: var(--space-lg);
   height: 100%;
   background: linear-gradient(90deg, var(--ski-blue), var(--ski-green));
   border-radius: 2px;
-  transition: width 0.3s ease;
+  transition: transform 0.3s ease;
+  transform-origin: left;
+  width: 100%;
 }
 
 .steps-row {
@@ -1490,6 +1496,27 @@ gap: var(--space-lg);
     font-size: 14px;
     margin-top: -8px;
     margin-bottom: 24px;
+}
+
+/* Button group styling for chips */
+.button-group {
+  display: flex;
+  gap: 10px;
+}
+
+.button-group-margin {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.button-group .chip {
+  flex: 1;
+  padding: 15px;
+}
+
+.button-group-margin .chip {
+  flex: 1;
 }
 
 /* Responsive adjustments */

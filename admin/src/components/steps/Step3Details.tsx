@@ -25,18 +25,16 @@ function Step3Details({ data, updateData, onNext, onBack }: Props) {
             <div className="card">
                 <div className="input-group">
                     <label className="input-label">Antall Hull</label>
-                    <div style={{ display: 'flex', gap: '10px' }}>
+                    <div className="button-group">
                         <button
                             className={`chip ${data.holes === 18 ? 'selected' : ''}`}
                             onClick={() => updateData({ holes: 18 })}
-                            style={{ flex: 1, padding: '15px' }}
                         >
                             18 Hull
                         </button>
                         <button
                             className={`chip ${data.holes === 9 ? 'selected' : ''}`}
                             onClick={() => updateData({ holes: 9 })}
-                            style={{ flex: 1, padding: '15px' }}
                         >
                             9 Hull
                         </button>
@@ -56,18 +54,16 @@ function Step3Details({ data, updateData, onNext, onBack }: Props) {
 
                 <div className="input-group">
                     <label className="input-label">Er du medlem i Ski GK?</label>
-                    <div style={{ display: 'flex', gap: '10px' }}>
+                    <div className="button-group">
                         <button
                             className={`chip ${data.isMember ? 'selected' : ''}`}
                             onClick={() => updateData({ isMember: true })}
-                            style={{ flex: 1, padding: '15px' }}
                         >
                             Ja, medlem
                         </button>
                         <button
                             className={`chip ${!data.isMember ? 'selected' : ''}`}
                             onClick={() => updateData({ isMember: false })}
-                            style={{ flex: 1, padding: '15px' }}
                         >
                             Nei, gjest
                         </button>
@@ -89,18 +85,16 @@ function Step3Details({ data, updateData, onNext, onBack }: Props) {
 
                 <div className="input-group">
                     <label className="input-label">Kontaktinfo ({data.notificationMethod})</label>
-                    <div style={{ display: 'flex', gap: '10px', marginBottom: '10px' }}>
+                    <div className="button-group-margin">
                         <button
                             className={`chip ${data.notificationMethod === 'email' ? 'selected' : ''}`}
                             onClick={() => updateData({ notificationMethod: 'email' })}
-                            style={{ flex: 1 }}
                         >
                             E-post
                         </button>
                         <button
                             className={`chip ${data.notificationMethod === 'sms' ? 'selected' : ''}`}
                             onClick={() => updateData({ notificationMethod: 'sms' })}
-                            style={{ flex: 1 }}
                         >
                             SMS
                         </button>
