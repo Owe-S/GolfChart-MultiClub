@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+         <loc>https://golfbilkontroll-skigk.web.app/docs/</loc>
+         <lastmod>2025-12-03</lastmod>
+    </url>
+    <url>
+         <loc>https://golfbilkontroll-skigk.web.app/docs/api/overview/</loc>
+         <lastmod>2025-12-03</lastmod>
+    </url>
+    <url>
+         <loc>https://golfbilkontroll-skigk.web.app/docs/architecture/data-model/</loc>
+         <lastmod>2025-12-03</lastmod>
+    </url>
+    <url>
+         <loc>https://golfbilkontroll-skigk.web.app/docs/architecture/multi-tenant/</loc>
+         <lastmod>2025-12-03</lastmod>
+    </url>
+    <url>
+         <loc>https://golfbilkontroll-skigk.web.app/docs/architecture/security/</loc>
+         <lastmod>2025-12-03</lastmod>
+    </url>
+    <url>
+         <loc>https://golfbilkontroll-skigk.web.app/docs/architecture/system/</loc>
+         <lastmod>2025-12-03</lastmod>
+    </url>
+    <url>
+         <loc>https://golfbilkontroll-skigk.web.app/docs/getting-started/firebase-setup/</loc>
+         <lastmod>2025-12-03</lastmod>
+    </url>
+    <url>
+         <loc>https://golfbilkontroll-skigk.web.app/docs/getting-started/local-dev/</loc>
+         <lastmod>2025-12-03</lastmod>
+    </url>
+</urlset>
