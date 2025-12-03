@@ -222,7 +222,7 @@ firebase auth:import users.json --project golfbilkontroll-skigk
 }
 ```
 
-Eller opprett manuelt i Emulator UI (http://localhost:4000/auth) med en enkel passord-autentisering.
+Eller opprett manuelt i Emulator UI (<http://localhost:4000/auth>) med en enkel passord-autentisering.
 
 ### 3. Hot reload
 
@@ -376,7 +376,7 @@ Kill prosess eller endre port i `firebase.json`:
 
 ### Problem: Auth emulator har ingen brukere
 
-**Løsning:** Opprett manuelt i Emulator UI (http://localhost:4000/auth) eller importer `users.json`.
+**Løsning:** Opprett manuelt i Emulator UI (<http://localhost:4000/auth>) eller importer `users.json`.
 
 ### Problem: Functions kan ikke nå Firestore
 

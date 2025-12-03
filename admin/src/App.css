@@ -40,3 +40,42 @@
 .read-the-docs {
   color: #888;
 }
+
+/* Header utility styles */
+.header-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.dev-reset-button {
+  padding: 5px 10px;
+  background: #fff3cd;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.menu-icon {
+  font-size: 24px;
+}
+
+/* Left panel utility styles */
+.availability-header {
+  margin-bottom: 10px;
+}
+
+/* Empty state styles */
+.empty-state {
+  text-align: center;
+  padding: 40px;
+}
+
+.empty-state-icon {
+  font-size: 48px;
+  margin-bottom: 20px;
+}
+
+.empty-state-text {
+  color: #666;
+}

@@ -1,6 +1,9 @@
 import '../ski-gk-theme.css';
+import ProgressSteps from './ProgressSteps';
 
 // Step Components
+import Step1Date from './steps/Step1Date';
+import Step2Cart from './steps/Step2Cart';
 import Step3Details from './steps/Step3Details';
 import Step4Review from './steps/Step4Review';
 
@@ -44,15 +47,20 @@ function BookingStepper({ currentStep, setCurrentStep, bookingData, setBookingDa
         setBookingData(prev => ({ ...prev, ...data }));
     };
 
-    const nextStep = () => setCurrentStep(prev => Math.min(prev + 1, 2));
+    const nextStep = () => setCurrentStep(prev => Math.min(prev + 1, 4));
     const prevStep = () => setCurrentStep(prev => Math.max(prev - 1, 1));
+    const goToStep = (step: number) => setCurrentStep(step);
 
     const renderStep = () => {
         switch (currentStep) {
             case 1:
-                return <Step3Details data={bookingData} updateData={updateData} onNext={nextStep} onBack={() => { }} />;
+                return <Step1Date data={bookingData} updateData={updateData} onNext={nextStep} />;
             case 2:
-                return <Step4Review data={bookingData} onBack={prevStep} />;
+                return <Step2Cart data={bookingData} updateData={updateData} onNext={nextStep} onBack={prevStep} />;
+            case 3:
+                return <Step3Details data={bookingData} updateData={updateData} onNext={nextStep} onBack={prevStep} />;
+            case 4:
+                return <Step4Review data={bookingData} onBack={prevStep} onEdit={goToStep} />;
             default:
                 return null;
         }
@@ -60,15 +68,12 @@ function BookingStepper({ currentStep, setCurrentStep, bookingData, setBookingDa
 
     return (
         <div className="stepper-container">
-            {/* Progress Bar */}
-            <div className="progress-bar">
-                {[1, 2].map(step => (
-                    <div
-                        key={step}
-                        className={`progress-step ${step === currentStep ? 'active' : ''} ${step < currentStep ? 'completed' : ''}`}
-                    />
-                ))}
-            </div>
+            {/* Enhanced Progress Steps */}
+            <ProgressSteps 
+                currentStep={currentStep} 
+                totalSteps={4}
+                onStepClick={goToStep}
+            />
 
             {/* Step Content */}
             <div className="step-content">

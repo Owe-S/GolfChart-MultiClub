@@ -40,9 +40,9 @@ function App() {
       time,
       cartId: cart.id,
       cartName: cart.name,
-      holes: 18 // Default to 18, user can change in details
+      holes: 18 // Default to 18, user can change in step 1
     }));
-    setCurrentStep(1); // Go to Details step
+    setCurrentStep(1); // Start at step 1 (Date/Time/Duration)
   };
 
   return (
@@ -52,23 +52,17 @@ function App() {
         <div className="app-logo">
           <span>SKI GOLFKLUBB</span>
         </div>
-        <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
+        <div className="header-actions">
           {import.meta.env.DEV && (
             <button
               onClick={handleInitDatabase}
               disabled={isInitializing}
-              style={{
-                padding: '5px 10px',
-                background: '#fff3cd',
-                border: 'none',
-                borderRadius: '4px',
-                cursor: 'pointer'
-              }}
+              className="dev-reset-button"
             >
               🛠️ Reset DB
             </button>
           )}
-          <div style={{ fontSize: '24px' }}>☰</div>
+          <div className="menu-icon">☰</div>
         </div>
       </header>
 
@@ -85,7 +79,7 @@ function App() {
 
           <div className="card">
             <h2 className="card-title">Tilgjengelighet</h2>
-            <p style={{ marginBottom: '10px' }}>Oversikt for {bookingData.date}</p>
+            <p className="availability-header">Oversikt for {bookingData.date}</p>
             <AvailabilityGrid
               selectedDate={bookingData.date}
               onSlotSelect={handleSlotSelect}
@@ -103,10 +97,10 @@ function App() {
               setBookingData={setBookingData}
             />
           ) : (
-            <div className="card" style={{ textAlign: 'center', padding: '40px' }}>
-              <div style={{ fontSize: '48px', marginBottom: '20px' }}>👈</div>
+            <div className="card empty-state">
+              <div className="empty-state-icon">👈</div>
               <h3>Velg en ledig tid i kalenderen</h3>
-              <p style={{ color: '#666' }}>Klikk på en grønn rute til venstre for å starte bookingen.</p>
+              <p className="empty-state-text">Klikk på en grønn rute til venstre for å starte bookingen.</p>
             </div>
           )}
         </div>

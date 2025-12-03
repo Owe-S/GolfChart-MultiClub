@@ -42,6 +42,7 @@ graph TB
 ## Hovedfunksjoner
 
 ### For administratorer
+
 - Dashboard med sanntidsoversikt
 - Håndtering av golfbiler (status, vedlikehold)
 - Opprett og avslutt utleier
@@ -50,6 +51,7 @@ graph TB
 - Bruker- og rollestyring
 
 ### For ansatte
+
 - Registrer nye utleier
 - Avslutt pågående utleier
 - Sett biler ute av drift
@@ -57,6 +59,7 @@ graph TB
 - AI-assistent for spørsmål
 
 ### For teknisk drift
+
 - Multi-miljø (dev, stage, prod)
 - CI/CD med GitHub Actions
 - Strukturert logging
@@ -73,6 +76,7 @@ graph TB
 ## Support
 
 For spørsmål og problemer:
+
 - **GitHub Issues:** [github.com/your-org/golfchart/issues](https://github.com/your-org/golfchart/issues)
 - **Dokumentasjon:** [golfbilkontroll-skigk.web.app/docs](https://golfbilkontroll-skigk.web.app/docs)
 

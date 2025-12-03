@@ -14,6 +14,7 @@ function Step2Cart({ data, updateData, onNext, onBack }: Props) {
     const [carts, setCarts] = useState<GolfCart[]>([]);
     const [loading, setLoading] = useState(true);
     const [availabilityMap, setAvailabilityMap] = useState<Record<number, boolean>>({});
+    const [showOnlyAvailable, setShowOnlyAvailable] = useState(false);
 
     useEffect(() => {
         const loadData = async () => {
@@ -46,64 +47,110 @@ function Step2Cart({ data, updateData, onNext, onBack }: Props) {
         onNext();
     };
 
+    const filteredCarts = showOnlyAvailable 
+        ? carts.filter(cart => availabilityMap[cart.id])
+        : carts;
+
+    const availableCount = Object.values(availabilityMap).filter(Boolean).length;
+
     if (loading) {
-        return <div className="text-center p-4">Sjekker tilgjengelighet...</div>;
+        return (
+            <div className="step-container">
+                <div className="loading-state">
+                    <div className="spinner"></div>
+                    <p>Sjekker tilgjengelighet...</p>
+                </div>
+            </div>
+        );
     }
 
     return (
         <div className="step-container">
-            <h2 className="card-title">Velg Golfbil</h2>
-            <p style={{ marginBottom: '16px', color: '#666' }}>
-                {data.date} kl {data.time} ({data.holes} hull)
+            <h2 className="card-title">🚗 Velg Golfbil</h2>
+            <p className="step-description">
+                {data.date} kl {data.time} • {data.holes} hull • {availableCount} av {carts.length} ledige
             </p>
 
-            <div className="cart-list">
-                {carts.map(cart => {
+            {/* Filter Toggle */}
+            <div className="filter-section">
+                <label className="filter-toggle">
+                    <input 
+                        type="checkbox"
+                        checked={showOnlyAvailable}
+                        onChange={(e) => setShowOnlyAvailable(e.target.checked)}
+                    />
+                    <span className="filter-label">Vis kun ledige biler</span>
+                </label>
+            </div>
+
+            {/* Cart Grid */}
+            <div className="cart-grid">
+                {filteredCarts.map(cart => {
                     const isAvailable = availabilityMap[cart.id];
+                    const isSelected = data.cartId === cart.id;
+                    
                     return (
-                        <div
+                        <button
                             key={cart.id}
-                            className="card"
-                            style={{
-                                display: 'flex',
-                                justifyContent: 'space-between',
-                                alignItems: 'center',
-                                borderLeft: `6px solid ${isAvailable ? 'var(--status-available-text)' : 'var(--status-booked-text)'}`
-                            }}
+                            type="button"
+                            className={`cart-card ${isAvailable ? 'available' : 'unavailable'} ${isSelected ? 'selected' : ''}`}
+                            disabled={!isAvailable}
+                            onClick={() => handleSelectCart(cart)}
                         >
-                            <div>
-                                <h3 style={{ margin: 0, fontSize: '18px' }}>{cart.name}</h3>
-                                <span style={{
-                                    fontSize: '14px',
-                                    color: isAvailable ? 'var(--status-available-text)' : 'var(--status-booked-text)',
-                                    fontWeight: 'bold'
-                                }}>
-                                    {isAvailable ? 'Ledig' : 'Opptatt'}
-                                </span>
+                            {/* Cart Icon */}
+                            <div className="cart-icon">
+                                🚗
                             </div>
 
-                            <button
-                                className="btn"
-                                style={{
-                                    width: 'auto',
-                                    padding: '0 24px',
-                                    backgroundColor: isAvailable ? 'var(--ski-gold)' : '#eee',
-                                    color: isAvailable ? 'var(--ski-blue-dark)' : '#999',
-                                    cursor: isAvailable ? 'pointer' : 'not-allowed'
-                                }}
-                                disabled={!isAvailable}
-                                onClick={() => handleSelectCart(cart)}
-                            >
-                                Velg
-                            </button>
-                        </div>
+                            {/* Cart Info */}
+                            <div className="cart-info">
+                                <h3 className="cart-name">{cart.name}</h3>
+                                <div className={`cart-status ${isAvailable ? 'available' : cart.status === 'out_of_order' ? 'occupied' : 'occupied'}`}>
+                                    <span className="status-dot"></span>
+                                    <span className="status-text">
+                                        {isAvailable ? 'Ledig' : cart.status === 'out_of_order' ? 'Ute av drift' : 'Opptatt'}
+                                    </span>
+                                </div>
+                            </div>
+
+                            {/* Selection Indicator */}
+                            {isAvailable && (
+                                <div className="cart-action">
+                                    {isSelected ? '✓' : '→'}
+                                </div>
+                            )}
+
+                            {/* Unavailable Overlay */}
+                            {!isAvailable && (
+                                <div className="cart-overlay">
+                                    <span className="overlay-text">Ikke tilgjengelig</span>
+                                </div>
+                            )}
+                        </button>
                     );
                 })}
             </div>
 
-            <button className="btn btn-text" onClick={onBack}>
-                Tilbake
-            </button>
+            {filteredCarts.length === 0 && (
+                <div className="empty-cart-state">
+                    <div className="empty-icon">🔍</div>
+                    <p>Ingen biler matcher dine kriterier</p>
+                    <button 
+                        type="button"
+                        className="btn btn-text" 
+                        onClick={() => setShowOnlyAvailable(false)}
+                    >
+                        Vis alle biler
+                    </button>
+                </div>
+            )}
+
+            {/* Navigation */}
+            <div className="step-actions">
+                <button type="button" className="btn btn-secondary" onClick={onBack}>
+                    ← Tilbake
+                </button>
+            </div>
         </div>
     );
 }

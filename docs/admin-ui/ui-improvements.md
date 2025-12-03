@@ -19,6 +19,7 @@ Implementert Ant Design-inspirert stegindikator:
 - **Pulserende animasjon** på gjeldende steg
 
 **Teknisk:**
+
 ```tsx
 <ProgressSteps 
   currentStep={currentStep} 
@@ -30,12 +31,14 @@ Implementert Ant Design-inspirert stegindikator:
 #### 2. Steg 1: Når & Hvor Lenge
 
 **Forbedringer:**
+
 - Visuell kortvelger for 9/18 hull
 - Prisforhåndsvisning per kategori
 - Bedre tid- og datovelger
 - Estimert varighet vises
 
 **CSS:**
+
 - `.hole-selector` med responsive kort
 - Hover-effekter og animasjoner
 - Grønn markering for valgt alternativ
@@ -43,6 +46,7 @@ Implementert Ant Design-inspirert stegindikator:
 #### 3. Steg 2: Velg Bil
 
 **Forbedringer:**
+
 - Visuelt rutenett med golfbil-kort
 - Status-badges (Ledig/Opptatt/Ute av drift)
 - Filter for kun ledige biler
@@ -50,6 +54,7 @@ Implementert Ant Design-inspirert stegindikator:
 - Disabled-overlay for utilgjengelige biler
 
 **CSS:**
+
 - `.cart-grid` med responsive kolonner
 - `.cart-card` med hover-transformasjon
 - Streket mønster for utilgjengelige
@@ -58,6 +63,7 @@ Implementert Ant Design-inspirert stegindikator:
 #### 4. Steg 3: Dine Opplysninger
 
 **Forbedringer:**
+
 - Live prisberegning med øyeblikkelige oppdateringer
 - Synlig priskort med breakdown
 - Rabatt-indikator for legeerklæring
@@ -65,6 +71,7 @@ Implementert Ant Design-inspirert stegindikator:
 - Bedre validering med inline-meldinger
 
 **CSS:**
+
 - `.price-breakdown-card` med strukturert layout
 - `.preference-chip` for valg av kontaktmetode
 - Grønn farge på rabatter
@@ -73,6 +80,7 @@ Implementert Ant Design-inspirert stegindikator:
 #### 5. Steg 4: Bekreft
 
 **Forbedringer:**
+
 - Redigeringsknapper for hvert steg
 - Detaljert sammendrag delt i seksjoner
 - Vilkår og betingelser-checkbox
@@ -80,6 +88,7 @@ Implementert Ant Design-inspirert stegindikator:
 - Forbedret suksess-skjerm
 
 **CSS:**
+
 - `.review-card` med seksjonert layout
 - `.edit-btn` med hover-skalering
 - `.price-summary-card` med gradient-bakgrunn

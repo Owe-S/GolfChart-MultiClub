@@ -1,5 +1,6 @@
 import type { BookingData } from '../BookingStepper';
 import Calendar from '../Calendar';
+import { calculatePrice } from '../../utils';
 
 interface Props {
     data: BookingData;
@@ -16,11 +17,16 @@ function Step1Date({ data, updateData, onNext }: Props) {
         }
     }
 
-    const isValid = data.date && data.time;
+    const isValid = data.date && data.time && data.holes;
+
+    // Calculate estimated price for preview
+    const memberPrice = calculatePrice(true, false, data.holes);
+    const nonMemberPrice = calculatePrice(false, false, data.holes);
 
     return (
         <div className="step-container">
-            <h2 className="card-title">Når vil du spille?</h2>
+            <h2 className="card-title">📅 Når & Varighet</h2>
+            <p className="step-description">Velg dato, tid og hvor lenge du vil spille</p>
 
             <div className="card">
                 <div className="input-group">
@@ -32,21 +38,27 @@ function Step1Date({ data, updateData, onNext }: Props) {
                 </div>
 
                 <div className="input-group">
-                    <label className="input-label">Velg antall hull</label>
-                    <div style={{ display: 'flex', gap: '10px' }}>
+                    <label className="input-label">Antall hull</label>
+                    <div className="hole-selector">
                         <button
-                            className={`chip ${data.holes === 18 ? 'selected' : ''}`}
+                            type="button"
+                            className={`hole-option ${data.holes === 18 ? 'selected' : ''}`}
                             onClick={() => updateData({ holes: 18 })}
-                            style={{ flex: 1, padding: '15px' }}
                         >
-                            18 Hull
+                            <div className="hole-number">18</div>
+                            <div className="hole-label">Hull</div>
+                            <div className="hole-duration">~4 timer</div>
+                            <div className="hole-price">Fra {memberPrice} kr</div>
                         </button>
                         <button
-                            className={`chip ${data.holes === 9 ? 'selected' : ''}`}
+                            type="button"
+                            className={`hole-option ${data.holes === 9 ? 'selected' : ''}`}
                             onClick={() => updateData({ holes: 9 })}
-                            style={{ flex: 1, padding: '15px' }}
                         >
-                            9 Hull
+                            <div className="hole-number">9</div>
+                            <div className="hole-label">Hull</div>
+                            <div className="hole-duration">~2 timer</div>
+                            <div className="hole-price">Fra {calculatePrice(true, false, 9)} kr</div>
                         </button>
                     </div>
                 </div>
@@ -57,6 +69,7 @@ function Step1Date({ data, updateData, onNext }: Props) {
                         {timeSlots.map(time => (
                             <button
                                 key={time}
+                                type="button"
                                 className={`chip ${data.time === time ? 'selected' : ''}`}
                                 onClick={() => updateData({ time })}
                             >
@@ -65,15 +78,26 @@ function Step1Date({ data, updateData, onNext }: Props) {
                         ))}
                     </div>
                 </div>
+
+                {data.holes && (
+                    <div className="price-preview">
+                        <div className="price-row">
+                            <span>💰 Estimert pris:</span>
+                            <span className="price-range">
+                                {memberPrice} kr (medlem) - {nonMemberPrice} kr (ikke-medlem)
+                            </span>
+                        </div>
+                    </div>
+                )}
             </div>
 
             <button
-                className="btn btn-primary"
+                type="button"
+                className="btn btn-primary btn-large"
                 onClick={onNext}
                 disabled={!isValid}
-                style={{ opacity: isValid ? 1 : 0.5 }}
             >
-                Neste: Velg Bil
+                Neste: Velg Bil →
             </button>
         </div>
     );

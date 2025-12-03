@@ -1,5 +1,6 @@
 import type { BookingData } from '../BookingStepper';
 import { calculatePrice } from '../../utils';
+import { PRICES, DOCTOR_NOTE_DISCOUNT } from '../../types';
 
 interface Props {
     data: BookingData;
@@ -9,14 +10,17 @@ interface Props {
 }
 
 function Step3Details({ data, updateData, onNext, onBack }: Props) {
-    const price = calculatePrice(data.isMember, data.hasDoctorsNote, data.holes);
+    const basePrice = data.isMember ? PRICES.member[data.holes] : PRICES.nonMember[data.holes];
+    const discount = data.hasDoctorsNote ? DOCTOR_NOTE_DISCOUNT : 0;
+    const finalPrice = calculatePrice(data.isMember, data.hasDoctorsNote, data.holes);
 
     const isValid = data.name && data.contactInfo &&
         (data.isMember ? data.membershipNumber : true);
 
     return (
         <div className="step-container">
-            <h2 className="card-title">Dine Detaljer</h2>
+            <h2 className="card-title">📝 Dine Detaljer</h2>
+            <p className="step-description">Fyll inn informasjonen din og bekreft prisen</p>
 
             <div className="card">
                 <div className="input-group">
@@ -111,39 +115,59 @@ function Step3Details({ data, updateData, onNext, onBack }: Props) {
                 </div>
 
                 <div className="input-group">
-                    <label className="input-label">
+                    <label className="checkbox-label">
                         <input
                             type="checkbox"
                             checked={data.hasDoctorsNote}
                             onChange={e => updateData({ hasDoctorsNote: e.target.checked })}
-                            style={{ width: '20px', height: '20px', marginRight: '10px' }}
+                            className="checkbox-input"
                         />
-                        Jeg har legeerklæring
+                        <span>Jeg har legeerklæring (50 kr rabatt)</span>
                     </label>
                 </div>
             </div>
 
-            <div className="card" style={{ backgroundColor: 'var(--ski-blue-dark)', color: 'white' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <span>Estimert pris:</span>
-                    <span style={{ fontSize: '24px', fontWeight: 'bold', color: 'var(--ski-gold)' }}>
-                        {price},-
-                    </span>
+            {/* Price Breakdown */}
+            <div className="price-breakdown-card">
+                <h3 className="price-breakdown-title">💰 Prisberegning</h3>
+                <div className="price-row">
+                    <span>Basispris ({data.holes} hull)</span>
+                    <span className="price-value">{basePrice} kr</span>
+                </div>
+                {data.hasDoctorsNote && (
+                    <div className="price-row discount">
+                        <span>Rabatt (legeerklæring)</span>
+                        <span className="price-value">-{discount} kr</span>
+                    </div>
+                )}
+                <div className="price-divider"></div>
+                <div className="price-row total">
+                    <span className="total-label">Totalt å betale</span>
+                    <span className="total-value">{finalPrice} kr</span>
+                </div>
+                <div className="price-note">
+                    {data.isMember ? '✓ Medlemspris' : 'Gjestepris'}
                 </div>
             </div>
 
-            <button
-                className="btn btn-primary"
-                onClick={onNext}
-                disabled={!isValid}
-                style={{ opacity: isValid ? 1 : 0.5 }}
-            >
-                Til Oppsummering
-            </button>
-
-            <button className="btn btn-text" onClick={onBack}>
-                Tilbake
-            </button>
+            {/* Navigation */}
+            <div className="step-actions">
+                <button 
+                    type="button"
+                    className="btn btn-secondary" 
+                    onClick={onBack}
+                >
+                    ← Tilbake
+                </button>
+                <button
+                    type="button"
+                    className="btn btn-primary btn-large"
+                    onClick={onNext}
+                    disabled={!isValid}
+                >
+                    Til Oppsummering →
+                </button>
+            </div>
         </div>
     );
 }
