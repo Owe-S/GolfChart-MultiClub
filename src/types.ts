@@ -8,15 +8,17 @@ export interface Rental {
   id?: string;
   cartId: number;
   renterName: string;
-  membershipNumber?: string | null;
-  isMember: boolean;
+  playerId: string;
   holes: number;
   startTime: string;
   endTime: string;
+  chargingEndTime: string;
   phone: string;
   email: string;
   notes: string;
   price: number;
   status: string;
   createdAt?: any;
+  cancelledAt?: any;
+  cancellationReason?: string;
 }

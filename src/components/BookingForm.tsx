@@ -11,52 +11,72 @@ interface BookingFormProps {
 function BookingForm({ cart, selectedDate, onSubmit, onCancel }: BookingFormProps) {
   const [formData, setFormData] = useState({
     renterName: '',
-    membershipNumber: '',
-    isMember: false,
+    playerId: '',
     holes: 18,
     startTime: '10:00',
-    endTime: '14:00',
+    endTime: '14:20',
+    chargingEndTime: '15:10',
     phone: '',
     email: '',
     notes: '',
   });
 
-  const handleChange = (e: any) => {
-    const { name, value, type, checked } = e.target;
-    let newValue: any = value;
-    
-    if (type === 'checkbox') {
-      newValue = checked;
-    } else if (name === 'holes') {
-      newValue = parseInt(value);
+  const [playerIdError, setPlayerIdError] = useState('');
+
+  // Calculate duration and charging period based on holes
+  const calculateEndTimes = (holes: number, startTime: string) => {
+    const start = new Date(`2000-01-01T${startTime}:00`);
+    let endTime: Date;
+    let chargingEndTime: Date;
+
+    if (holes === 18) {
+      // 18 holes: 4h 20min play + 50min charging = 5h 10min total
+      endTime = new Date(start.getTime() + 4 * 60 * 60000 + 20 * 60000);
+      chargingEndTime = new Date(endTime.getTime() + 50 * 60000);
+    } else {
+      // 9 holes: 2h 10min play + 30min charging = 2h 40min total
+      endTime = new Date(start.getTime() + 2 * 60 * 60000 + 10 * 60000);
+      chargingEndTime = new Date(endTime.getTime() + 30 * 60000);
     }
+
+    return {
+      endTime: endTime.toTimeString().slice(0, 5),
+      chargingEndTime: chargingEndTime.toTimeString().slice(0, 5),
+    };
+  };
+
+  const validatePlayerId = (id: string): boolean => {
+    // Format: 3 digits - 7 digits (e.g., 073-1234567)
+    const playerIdRegex = /^\d{3}-\d{7}$/;
+    return playerIdRegex.test(id);
+  };
+
+  const handleChange = (e: any) => {
+    const { name, value } = e.target;
 
     setFormData(prev => ({
       ...prev,
-      [name]: newValue,
+      [name]: value,
     }));
 
-    // Auto-calculate end time based on holes
-    if (name === 'holes') {
-      const hours = parseInt(value) === 18 ? 4 : 2;
-      const start = new Date(`2000-01-01T${formData.startTime}:00`);
-      const end = new Date(start.getTime() + hours * 60 * 60000);
-      const endTime = end.toTimeString().slice(0, 5);
-      setFormData(prev => ({
-        ...prev,
-        endTime
-      }));
+    // Validate player ID format on change
+    if (name === 'playerId') {
+      if (value && !validatePlayerId(value)) {
+        setPlayerIdError('Format: 3 siffer-7 siffer (f.eks. 073-1234567)');
+      } else {
+        setPlayerIdError('');
+      }
     }
 
-    // Auto-calculate end time if start time changes
-    if (name === 'startTime') {
-      const hours = formData.holes === 18 ? 4 : 2;
-      const start = new Date(`2000-01-01T${value}:00`);
-      const end = new Date(start.getTime() + hours * 60 * 60000);
-      const endTime = end.toTimeString().slice(0, 5);
+    // Auto-calculate end times based on holes or start time
+    if (name === 'holes' || name === 'startTime') {
+      const holes = name === 'holes' ? parseInt(value) : formData.holes;
+      const startTime = name === 'startTime' ? value : formData.startTime;
+      const { endTime, chargingEndTime } = calculateEndTimes(holes, startTime);
       setFormData(prev => ({
         ...prev,
-        endTime
+        endTime,
+        chargingEndTime,
       }));
     }
   };
@@ -69,6 +89,16 @@ function BookingForm({ cart, selectedDate, onSubmit, onCancel }: BookingFormProp
       return;
     }
     
+    if (!formData.playerId.trim()) {
+      alert('Legg inn spiller-ID');
+      return;
+    }
+
+    if (!validatePlayerId(formData.playerId)) {
+      alert('Ugyldig spiller-ID format (bruk f.eks. 073-1234567)');
+      return;
+    }
+    
     if (!formData.phone.trim()) {
       alert('Legg inn telefonnummer');
       return;
@@ -76,18 +106,20 @@ function BookingForm({ cart, selectedDate, onSubmit, onCancel }: BookingFormProp
 
     const startDateTime = new Date(`${selectedDate}T${formData.startTime}:00`).toISOString();
     const endDateTime = new Date(`${selectedDate}T${formData.endTime}:00`).toISOString();
+    const chargingEndDateTime = new Date(`${selectedDate}T${formData.chargingEndTime}:00`).toISOString();
 
     onSubmit({
       renterName: formData.renterName,
-      membershipNumber: formData.membershipNumber || null,
-      isMember: formData.isMember,
+      playerId: formData.playerId,
       holes: formData.holes,
       startTime: startDateTime,
       endTime: endDateTime,
+      chargingEndTime: chargingEndDateTime,
       phone: formData.phone,
       email: formData.email,
       notes: formData.notes,
       price: formData.holes === 18 ? 450 : 250,
+      status: 'confirmed',
     });
   };
 
@@ -105,7 +137,7 @@ function BookingForm({ cart, selectedDate, onSubmit, onCancel }: BookingFormProp
     <div className="booking-form">
       <form onSubmit={handleSubmit}>
         <div className="form-section">
-          <h3>📋 Leietakers informasjon</h3>
+          <h3>📋 Spiller og leieinformasjon</h3>
           <div className="form-group">
             <label htmlFor="renterName">Navn *</label>
             <input
@@ -119,30 +151,19 @@ function BookingForm({ cart, selectedDate, onSubmit, onCancel }: BookingFormProp
             />
           </div>
 
-          <div className="form-group checkbox">
+          <div className="form-group">
+            <label htmlFor="playerId">Spiller-ID *</label>
             <input
-              id="isMember"
-              type="checkbox"
-              name="isMember"
-              checked={formData.isMember}
+              id="playerId"
+              type="text"
+              name="playerId"
+              placeholder="f.eks. 073-1234567"
+              value={formData.playerId}
               onChange={handleChange}
+              required
             />
-            <label htmlFor="isMember">Jeg er medlem av klubben</label>
+            {playerIdError && <div style={{ color: '#d32f2f', fontSize: '0.85em', marginTop: '4px' }}>{playerIdError}</div>}
           </div>
-
-          {formData.isMember && (
-            <div className="form-group">
-              <label htmlFor="membershipNumber">GolfBox medlemsnummer</label>
-              <input
-                id="membershipNumber"
-                type="text"
-                name="membershipNumber"
-                placeholder="f.eks. 73-10524"
-                value={formData.membershipNumber}
-                onChange={handleChange}
-              />
-            </div>
-          )}
         </div>
 
         <div className="form-section">
@@ -194,16 +215,35 @@ function BookingForm({ cart, selectedDate, onSubmit, onCancel }: BookingFormProp
             </div>
           </div>
 
-          <div className="form-group">
-            <label htmlFor="endTime">Sluttid</label>
-            <input
-              id="endTime"
-              type="time"
-              name="endTime"
-              value={formData.endTime}
-              disabled
-              style={{ backgroundColor: '#f0f0f0', cursor: 'not-allowed' }}
-            />
+          <div className="form-row">
+            <div className="form-group">
+              <label htmlFor="endTime">Sluttid (inkl. spilling)</label>
+              <input
+                id="endTime"
+                type="time"
+                name="endTime"
+                value={formData.endTime}
+                disabled
+                style={{ backgroundColor: '#f0f0f0', cursor: 'not-allowed' }}
+              />
+              <small style={{ color: '#666', marginTop: '4px', display: 'block' }}>
+                {formData.holes === 18 ? '4h 20min' : '2h 10min'} spilletid
+              </small>
+            </div>
+            <div className="form-group">
+              <label htmlFor="chargingEndTime">Klar for neste booking</label>
+              <input
+                id="chargingEndTime"
+                type="time"
+                name="chargingEndTime"
+                value={formData.chargingEndTime}
+                disabled
+                style={{ backgroundColor: '#f0f0f0', cursor: 'not-allowed' }}
+              />
+              <small style={{ color: '#666', marginTop: '4px', display: 'block' }}>
+                +{formData.holes === 18 ? '50' : '30'} min lading
+              </small>
+            </div>
           </div>
         </div>
 

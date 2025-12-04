@@ -18,19 +18,19 @@ interface CellStatus {
   status: 'available' | 'booked';
 }
 
-const TIME_SLOTS: TimeSlot[] = [
-  { label: '10:00', time: '10:00' },
-  { label: '11:00', time: '11:00' },
-  { label: '12:00', time: '12:00' },
-  { label: '13:00', time: '13:00' },
-  { label: '14:00', time: '14:00' },
-  { label: '15:00', time: '15:00' },
-  { label: '16:00', time: '16:00' },
-  { label: '17:00', time: '17:00' },
-  { label: '18:00', time: '18:00' },
-  { label: '19:00', time: '19:00' },
-  { label: '20:00', time: '20:00' },
-];
+// Generate 10-minute interval slots: 6 slots per hour
+const generateTimeSlots = (): TimeSlot[] => {
+  const slots: TimeSlot[] = [];
+  for (let hour = 10; hour <= 20; hour++) {
+    for (let minute = 0; minute < 60; minute += 10) {
+      const timeStr = `${String(hour).padStart(2, '0')}:${String(minute).padStart(2, '0')}`;
+      slots.push({ label: timeStr, time: timeStr });
+    }
+  }
+  return slots;
+};
+
+const TIME_SLOTS = generateTimeSlots();
 
 function AvailabilityGrid({ selectedDate, carts, onCartSelect }: AvailabilityGridProps) {
   const [cellStatuses, setCellStatuses] = useState<Map<string, CellStatus>>(new Map());
@@ -50,13 +50,14 @@ function AvailabilityGrid({ selectedDate, carts, onCartSelect }: AvailabilityGri
             const key = `${cart.id}-${slot.time}`;
             const slotTime = new Date(`${selectedDate}T${slot.time}:00`);
 
-            // Check if any rental conflicts with this time slot
+            // Check if any rental (including charging period) conflicts with this time slot
             const hasConflict = Array.from(snapshot.docs).some(doc => {
               const data = doc.data();
-              if (data.cartId !== cart.id) return false;
+              if (data.cartId !== cart.id || data.status === 'cancelled') return false;
 
               const rentalStart = new Date(data.startTime);
-              const rentalEnd = new Date(data.endTime);
+              // Use chargingEndTime if available, otherwise fall back to endTime
+              const rentalEnd = data.chargingEndTime ? new Date(data.chargingEndTime) : new Date(data.endTime);
 
               return slotTime >= rentalStart && slotTime < rentalEnd;
             });
