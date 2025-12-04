@@ -3542,8 +3542,10 @@ body {
   }
 
   .availability-tooltip {
-    position: absolute;
+    position: fixed;
     z-index: 1000;
+    left: calc(attr(data-x, 0) * 1px);
+    top: calc(attr(data-y, 0) * 1px - 10px);
   }
 
   .utilization-bar-fill {
@@ -3574,9 +3576,9 @@ body {
 
   .skeleton-loader-dynamic {
     display: inline-block;
-    width: var(--skeleton-width, 100%);
-    height: var(--skeleton-height, 40px);
-    border-radius: var(--skeleton-radius, 4px);
+    width: attr(data-width, 100%);
+    height: attr(data-height, 40px);
+    border-radius: attr(data-radius, 4px);
   }
 
   .progress-bar-dynamic {

@@ -364,10 +364,9 @@ function BookingAnalyticsPage() {
                       <span className="distribution-value">{item.percentage.toFixed(1)}%</span>
                     </div>
                     <div className="distribution-bar-container">
-                      {/* Using CSS custom property for dynamic width */}
                       <div 
                         className={`distribution-bar ${index === 0 ? 'distribution-bar-green' : ''}`}
-                        style={{ '--bar-width': `${item.percentage}%` } as React.CSSProperties}
+                        data-width={`${item.percentage}%`}
                       />
                     </div>
                     <div className="distribution-count">{item.count} bookinger</div>

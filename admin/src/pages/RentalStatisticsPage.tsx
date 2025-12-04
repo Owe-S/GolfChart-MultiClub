@@ -328,9 +328,8 @@ function RentalStatisticsPage() {
                     <td>
                       <div className="progress-container">
                         <div className="progress-track">
-                          {/* Using CSS custom property for dynamic width */}
                           <div className="progress-bar"
-                            style={{ '--progress-width': `${Math.min(cart.utilization, 100)}%` } as React.CSSProperties}
+                            data-width={`${Math.min(cart.utilization, 100)}%`}
                           />
                         </div>
                         <span>{cart.utilization.toFixed(0)}%</span>

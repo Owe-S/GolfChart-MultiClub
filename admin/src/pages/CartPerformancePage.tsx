@@ -331,15 +331,12 @@ function CartPerformancePage() {
                     <td>
                       <div className="utilization-cell">
                         <div className="utilization-bar-bg">
-                          {/* Using CSS custom property for dynamic width */}
                           <div 
                             className={`utilization-bar-fill ${
                               cart.utilizationPercentage > 70 ? 'utilization-bar-fill-high' : 
                               cart.utilizationPercentage > 40 ? 'utilization-bar-fill-medium' : 'utilization-bar-fill-low'
                             }`}
-                            style={{ 
-                              '--progress-width': `${Math.min(cart.utilizationPercentage, 100)}%`
-                            } as React.CSSProperties}
+                            data-width={`${Math.min(cart.utilizationPercentage, 100)}%`}
                           />
                         </div>
                         <span className="utilization-text">{cart.utilizationPercentage.toFixed(1)}%</span>

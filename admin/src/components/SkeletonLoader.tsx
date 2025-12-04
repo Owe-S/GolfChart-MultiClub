@@ -22,11 +22,9 @@ function SkeletonLoader({ type = 'card', width = '100%', height = '40px', count 
         <div
           key={index}
           className="skeleton-loader skeleton-loader-dynamic"
-          style={{
-            '--skeleton-width': width,
-            '--skeleton-height': height,
-            '--skeleton-radius': getBorderRadius(),
-          } as React.CSSProperties}
+          data-width={width}
+          data-height={height}
+          data-radius={getBorderRadius()}
         />
       ))}
     </>
