@@ -27,12 +27,14 @@ function ReportsPage() {
           </div>
         </Link>
 
-        <div className="report-card">
-          <div className="report-icon">🚗</div>
-          <h3>Bilutnyttelse</h3>
-          <p>Hvor mye brukes hver bil</p>
-          <button className="btn-primary">Generer Rapport</button>
-        </div>
+        <Link to="/reports/performance" className="report-card-link">
+          <div className="report-card">
+            <div className="report-icon">🚗</div>
+            <h3>Bilutnyttelse</h3>
+            <p>Hvor mye brukes hver bil</p>
+            <button className="btn-primary">Åpne Rapport</button>
+          </div>
+        </Link>
 
         <div className="report-card">
           <div className="report-icon">📈</div>

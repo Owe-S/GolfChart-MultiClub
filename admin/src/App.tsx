@@ -8,6 +8,7 @@ import CartsPage from './pages/CartsPage';
 import ReportsPage from './pages/ReportsPage';
 import RevenueReportPage from './pages/RevenueReportPage';
 import BookingAnalyticsPage from './pages/BookingAnalyticsPage';
+import CartPerformancePage from './pages/CartPerformancePage';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path="reports" element={<ReportsPage />} />
           <Route path="reports/revenue" element={<RevenueReportPage />} />
           <Route path="reports/analytics" element={<BookingAnalyticsPage />} />
+          <Route path="reports/performance" element={<CartPerformancePage />} />
         </Route>
       </Routes>
     </BrowserRouter>

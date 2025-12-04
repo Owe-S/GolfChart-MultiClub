@@ -2855,6 +2855,113 @@ body {
   color: var(--text-primary);
 }
 
+/* ===========================
+   Cart Performance Page
+   =========================== */
+
+.performance-table-container {
+  background: white;
+  padding: var(--space-lg);
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin: var(--space-lg) 0;
+}
+
+.section-title {
+  margin: 0 0 var(--space-md) 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.performance-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: var(--space-md);
+}
+
+.performance-table th {
+  background: #F8F9FA;
+  padding: var(--space-md);
+  text-align: left;
+  font-weight: 600;
+  color: var(--text-secondary);
+  border-bottom: 2px solid #DEE2E6;
+}
+
+.performance-table td {
+  padding: var(--space-md);
+  border-bottom: 1px solid #E9ECEF;
+}
+
+.performance-table tbody tr:hover {
+  background: #F8F9FA;
+}
+
+.cart-id-text {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
+.utilization-cell {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.utilization-bar-bg {
+  flex: 1;
+  height: 20px;
+  background: #E9ECEF;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.utilization-bar-fill {
+  height: 100%;
+  border-radius: 10px;
+  transition: width 0.3s ease;
+}
+
+.utilization-text {
+  min-width: 50px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.performance-badge {
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.performance-badge.excellent {
+  background: #D4EDDA;
+  color: #155724;
+}
+
+.performance-badge.good {
+  background: #FFF3CD;
+  color: #856404;
+}
+
+.performance-badge.low {
+  background: #F8D7DA;
+  color: #721C24;
+}
+
+.empty-state-card {
+  text-align: center;
+  padding: var(--space-xl);
+  color: var(--text-secondary);
+}
+
+.empty-state-icon {
+  font-size: 4rem;
+  margin-bottom: var(--space-md);
+}
+
 /* Responsive - Bookings Table */
 @media (max-width: 768px) {
   .bookings-table-container {
