@@ -3354,7 +3354,6 @@ body {
     padding: var(--space-md);
     margin: var(--space-md) 0;
     overflow-x: auto;
-    -webkit-overflow-scrolling: auto;
   }
 
   .bookings-table,
@@ -3394,6 +3393,208 @@ body {
   .charts-grid {
     grid-template-columns: 1fr;
     gap: var(--space-md);
+  }
+
+  /* Color legend items */
+  .legend-item {
+    margin: 0 8px;
+    display: inline-block;
+  }
+
+  .legend-item-green {
+    color: #00A86B;
+  }
+
+  .legend-item-gold {
+    color: #FFD700;
+  }
+
+  .legend-item-red {
+    color: #C5221F;
+  }
+
+  /* Distribution bar styling */
+  .distribution-bar {
+    background: #0066CC;
+    width: var(--bar-width, 0%);
+  }
+
+  .distribution-bar-green {
+    background: #00A86B;
+  }
+
+  /* Progress bar styling */
+  .progress-track {
+    width: 100px;
+    height: 8px;
+    background-color: #e0e0e0;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .progress-bar {
+    height: 100%;
+    background-color: #00a86b;
+    transition: width 0.3s;
+    width: var(--progress-width, 0%);
+  }
+
+  .progress-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  /* Error boundary styles */
+  .error-details {
+    margin-top: 8px;
+    font-size: 12px;
+  }
+
+  .error-details summary {
+    cursor: pointer;
+  }
+
+  .error-details pre {
+    overflow: auto;
+    font-size: 11px;
+  }
+
+  /* Modal/Form elements */
+  .modal-cancel-reason {
+    color: #666;
+    margin-bottom: 20px;
+  }
+
+  .modal-textarea {
+    width: 100%;
+    min-height: 80px;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    font-family: inherit;
+    font-size: 14px;
+    resize: vertical;
+  }
+
+  .modal-button-container {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+  }
+
+  .modal-button-cancel {
+    padding: 8px 16px;
+    background: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+
+  .modal-button-cancel:hover {
+    background: #e0e0e0;
+  }
+
+  /* Stat badge variations */
+  .stat-dash {
+    color: #999;
+  }
+
+  .stat-average {
+    color: #999;
+    font-size: 0.9em;
+    margin-left: 5px;
+  }
+
+  /* Table styling enhancements */
+  .player-stats-header {
+    margin-top: 30px;
+  }
+
+  .player-stats-table {
+    margin-top: 15px;
+  }
+
+  .cart-utilization-small {
+    font-size: 11px;
+  }
+
+  /* Skeleton styles for loading */
+  .skeleton-inline {
+    display: inline-block;
+  }
+
+  .skeleton-40x28 {
+    width: 40px;
+    height: 28px;
+  }
+
+  .skeleton-60x28 {
+    width: 60px;
+    height: 28px;
+  }
+
+  .skeleton-50x28 {
+    width: 50px;
+    height: 28px;
+  }
+
+  .availability-tooltip {
+    position: absolute;
+    z-index: 1000;
+  }
+
+  .utilization-bar-fill {
+    width: var(--progress-width, 0%);
+    height: 100%;
+    transition: width 0.3s;
+  }
+
+  .utilization-bar-fill-high {
+    background-color: #00A86B;
+  }
+
+  .utilization-bar-fill-medium {
+    background-color: #FFD700;
+  }
+
+  .utilization-bar-fill-low {
+    background-color: #C5221F;
+  }
+
+  .btn-primary-danger {
+    background-color: #d32f2f;
+  }
+
+  .btn-primary-danger:hover {
+    background-color: #b71c1c;
+  }
+
+  .skeleton-loader-dynamic {
+    display: inline-block;
+    width: var(--skeleton-width, 100%);
+    height: var(--skeleton-height, 40px);
+    border-radius: var(--skeleton-radius, 4px);
+  }
+
+  .progress-bar-dynamic {
+    display: inline-block;
+  }
+
+  .alert-close {
+    background: none;
+    border: none;
+    font-size: 1.25rem;
+    cursor: pointer;
+    padding: 0;
+    color: inherit;
+    opacity: 0.7;
+  }
+
+  .alert-close:hover {
+    opacity: 1;
   }
 
   .chart-card {

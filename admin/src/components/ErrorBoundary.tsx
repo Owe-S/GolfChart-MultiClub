@@ -32,9 +32,9 @@ class ErrorBoundary extends React.Component<Props, State> {
             <h3>Noe gikk galt</h3>
             <p>En uventet feil oppstod. Prøv å oppdatere siden.</p>
             {import.meta.env.DEV && (
-              <details style={{ marginTop: '8px', fontSize: '12px' }}>
+              <details className="error-details">
                 <summary>Detaljer</summary>
-                <pre style={{ overflow: 'auto', fontSize: '11px' }}>
+                <pre>
                   {this.state.error?.toString()}
                 </pre>
               </details>

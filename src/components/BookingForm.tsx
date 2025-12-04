@@ -226,7 +226,7 @@ function BookingForm({ cart, selectedDate, onSubmit, onCancel }: BookingFormProp
                 name="endTime"
                 value={formData.endTime}
                 disabled
-                style={{ backgroundColor: '#f0f0f0', cursor: 'not-allowed' }}
+                className="disabled-input"
               />
               <small className="helper-text">
                 {formData.holes === 18 ? '4h 20min' : '2h 10min'} spilletid
@@ -240,7 +240,7 @@ function BookingForm({ cart, selectedDate, onSubmit, onCancel }: BookingFormProp
                 name="chargingEndTime"
                 value={formData.chargingEndTime}
                 disabled
-                style={{ backgroundColor: '#f0f0f0', cursor: 'not-allowed' }}
+                className="disabled-input"
               />
               <small className="helper-text">
                 +{formData.holes === 18 ? '50' : '30'} min lading

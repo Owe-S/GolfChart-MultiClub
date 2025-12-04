@@ -21,6 +21,7 @@ function CartPerformancePage() {
 
   useEffect(() => {
     loadPerformanceData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dateRange]);
 
   async function loadPerformanceData() {
@@ -330,13 +331,15 @@ function CartPerformancePage() {
                     <td>
                       <div className="utilization-cell">
                         <div className="utilization-bar-bg">
+                          {/* Using CSS custom property for dynamic width */}
                           <div 
-                            className="utilization-bar-fill"
+                            className={`utilization-bar-fill ${
+                              cart.utilizationPercentage > 70 ? 'utilization-bar-fill-high' : 
+                              cart.utilizationPercentage > 40 ? 'utilization-bar-fill-medium' : 'utilization-bar-fill-low'
+                            }`}
                             style={{ 
-                              width: `${Math.min(cart.utilizationPercentage, 100)}%`,
-                              background: cart.utilizationPercentage > 70 ? '#00A86B' : 
-                                        cart.utilizationPercentage > 40 ? '#FFD700' : '#C5221F'
-                            }}
+                              '--progress-width': `${Math.min(cart.utilizationPercentage, 100)}%`
+                            } as React.CSSProperties}
                           />
                         </div>
                         <span className="utilization-text">{cart.utilizationPercentage.toFixed(1)}%</span>

@@ -213,9 +213,13 @@ function AvailabilityGrid({ selectedDate, onSlotSelect }: AvailabilityGridProps)
                 <div
                     className="availability-tooltip"
                     style={{
-                        left: `${tooltipPosition.x}px`,
-                        top: `${tooltipPosition.y}px`,
-                    }}
+                        '--tooltip-left': `${tooltipPosition.x}px`,
+                        '--tooltip-top': `${tooltipPosition.y}px`,
+                        left: 'var(--tooltip-left)',
+                        top: 'var(--tooltip-top)',
+                        position: 'fixed',
+                        zIndex: 1000,
+                    } as React.CSSProperties}
                 >
                     {(() => {
                         const rental = cellStatuses.get(hoveredCell)?.rental;
