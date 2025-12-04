@@ -12,7 +12,7 @@ import CartPerformancePage from './pages/CartPerformancePage';
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/admin/">
       <Routes>
         <Route path="/" element={<AdminLayout />}>
           <Route index element={<DashboardHome />} />
