@@ -36,6 +36,15 @@ function ReportsPage() {
           </div>
         </Link>
 
+        <Link to="/reports/statistics" className="report-card-link">
+          <div className="report-card">
+            <div className="report-icon">👥</div>
+            <h3>Spillerdata & Statistikk</h3>
+            <p>Spiller og bilstatistikk</p>
+            <button className="btn-primary">Åpne Rapport</button>
+          </div>
+        </Link>
+
         <div className="report-card">
           <div className="report-icon">📈</div>
           <h3>Trendanalyse</h3>
