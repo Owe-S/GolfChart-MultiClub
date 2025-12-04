@@ -3,6 +3,9 @@ import './ski-gk-theme.css';
 import AdminLayout from './layouts/AdminLayout';
 import DashboardHome from './pages/DashboardHome';
 import BookingPage from './pages/BookingPage';
+import BookingsListPage from './pages/BookingsListPage';
+import CartsPage from './pages/CartsPage';
+import ReportsPage from './pages/ReportsPage';
 
 function App() {
   return (
@@ -11,9 +14,9 @@ function App() {
         <Route path="/" element={<AdminLayout />}>
           <Route index element={<DashboardHome />} />
           <Route path="booking" element={<BookingPage />} />
-          <Route path="bookings" element={<div className="page-placeholder">📋 Bookings List (Coming Soon)</div>} />
-          <Route path="carts" element={<div className="page-placeholder">🚗 Cart Management (Coming Soon)</div>} />
-          <Route path="reports" element={<div className="page-placeholder">📈 Reports (Coming Soon)</div>} />
+          <Route path="bookings" element={<BookingsListPage />} />
+          <Route path="carts" element={<CartsPage />} />
+          <Route path="reports" element={<ReportsPage />} />
         </Route>
       </Routes>
     </BrowserRouter>
