@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import '../ski-gk-theme.css';
 
 function ReportsPage() {
@@ -8,12 +9,14 @@ function ReportsPage() {
       </div>
 
       <div className="reports-grid">
-        <div className="report-card">
-          <div className="report-icon">💰</div>
-          <h3>Inntektsrapport</h3>
-          <p>Vis inntekter over tid</p>
-          <button className="btn-primary">Generer Rapport</button>
-        </div>
+        <Link to="/reports/revenue" className="report-card-link">
+          <div className="report-card">
+            <div className="report-icon">💰</div>
+            <h3>Inntektsrapport</h3>
+            <p>Vis inntekter over tid</p>
+            <button className="btn-primary">Åpne Rapport</button>
+          </div>
+        </Link>
 
         <div className="report-card">
           <div className="report-icon">📊</div>

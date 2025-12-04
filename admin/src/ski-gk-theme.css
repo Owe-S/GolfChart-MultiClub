@@ -2632,6 +2632,129 @@ body {
   line-height: 1.8;
 }
 
+.report-card-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* ===========================
+   Revenue Report Page
+   =========================== */
+
+.report-controls {
+  background: white;
+  border-radius: var(--radius-md);
+  padding: var(--space-lg);
+  margin-bottom: var(--space-xl);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-lg);
+  flex-wrap: wrap;
+}
+
+.date-range-buttons {
+  display: flex;
+  gap: var(--space-sm);
+}
+
+.range-btn {
+  padding: var(--space-sm) var(--space-lg);
+  border: 1px solid var(--border-color);
+  background: white;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.range-btn:hover {
+  background: var(--bg-color);
+}
+
+.range-btn.active {
+  background: var(--ski-blue);
+  color: white;
+  border-color: var(--ski-blue);
+}
+
+.date-inputs {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.date-input {
+  padding: var(--space-sm) var(--space-md);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  font-size: 14px;
+  font-family: inherit;
+}
+
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--space-lg);
+  margin-bottom: var(--space-xl);
+}
+
+.metric-card {
+  background: white;
+  border-radius: var(--radius-md);
+  padding: var(--space-xl);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.metric-icon {
+  font-size: 48px;
+  margin-bottom: var(--space-md);
+}
+
+.metric-value {
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--ski-blue-dark);
+  margin-bottom: var(--space-sm);
+}
+
+.metric-label {
+  font-size: 14px;
+  color: var(--text-secondary);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.charts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+  gap: var(--space-lg);
+}
+
+.chart-card {
+  background: white;
+  border-radius: var(--radius-md);
+  padding: var(--space-xl);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.chart-title {
+  margin: 0 0 var(--space-lg) 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
 /* Responsive - Bookings Table */
 @media (max-width: 768px) {
   .bookings-table-container {
