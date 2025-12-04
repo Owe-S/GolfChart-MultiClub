@@ -1,8 +1,0 @@
-{
-  "dependencies": {
-    "@google/genai": "^1.30.0",
-    "firebase": "^12.6.0",
-    "firebase-admin": "^13.6.0",
-    "react-router-dom": "^7.9.6"
-  }
-}
