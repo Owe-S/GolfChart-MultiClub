@@ -14,13 +14,17 @@
   "hosting": [
     {
       "site": "GolfChart-MultiClub",
-      "public": "admin/dist",
+      "public": "public",
       "ignore": [
         "firebase.json",
         "**/.*",
         "**/node_modules/**"
       ],
       "rewrites": [
+        {
+          "source": "/admin/**",
+          "destination": "/admin/index.html"
+        },
         {
           "source": "**",
           "destination": "/index.html"
