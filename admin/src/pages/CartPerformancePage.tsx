@@ -107,6 +107,127 @@ function CartPerformancePage() {
     ? performanceData.reduce((sum, cart) => sum + cart.utilizationPercentage, 0) / performanceData.length
     : 0;
 
+  function exportPerformanceCSV() {
+    const headers = ['Bil', 'ID', 'Bookinger', 'Timer brukt', 'Inntekt', 'Utnyttelse %', 'Status'];
+    const rows = performanceData.map(cart => [
+      cart.cartName,
+      cart.cartId,
+      cart.totalBookings,
+      cart.totalHours,
+      cart.totalRevenue,
+      cart.utilizationPercentage.toFixed(1),
+      cart.utilizationPercentage > 70 ? 'Utmerket' : cart.utilizationPercentage > 40 ? 'God' : 'Lav'
+    ]);
+
+    const summary = [
+      ['Bilutnyttelse', `${dateRange === 'week' ? 'Siste 7 dager' : dateRange === 'month' ? 'Siste måned' : 'Siste år'}`],
+      [''],
+      ['Total inntekt', totalRevenue],
+      ['Totale bookinger', totalBookings],
+      ['Gjennomsnittlig utnyttelse', `${avgUtilization.toFixed(1)}%`],
+      ['Antall biler', performanceData.length],
+      [''],
+    ];
+
+    const csvContent = [
+      ...summary.map(row => row.join(',')),
+      headers.join(','),
+      ...rows.map(row => row.join(','))
+    ].join('\n');
+
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = `bilutnyttelse_${new Date().toISOString().split('T')[0]}.csv`;
+    link.click();
+  }
+
+  function exportPerformancePDF() {
+    const printWindow = window.open('', '_blank');
+    if (!printWindow) return;
+
+    const htmlContent = `
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <title>Bilutnyttelse</title>
+          <style>
+            body { font-family: Arial, sans-serif; padding: 20px; }
+            h1 { color: #0066CC; }
+            .metrics { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin: 20px 0; }
+            .metric { background: #f5f5f5; padding: 15px; border-radius: 8px; }
+            .metric-label { font-size: 12px; color: #666; }
+            .metric-value { font-size: 24px; font-weight: bold; color: #0066CC; }
+            table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+            th, td { padding: 10px; text-align: left; border-bottom: 1px solid #ddd; }
+            th { background: #f5f5f5; font-weight: bold; }
+            .status-excellent { color: #155724; }
+            .status-good { color: #856404; }
+            .status-low { color: #721C24; }
+            @media print { button { display: none; } }
+          </style>
+        </head>
+        <body>
+          <h1>🚗 Bilutnyttelse</h1>
+          <p>Periode: ${dateRange === 'week' ? 'Siste 7 dager' : dateRange === 'month' ? 'Siste måned' : 'Siste år'}</p>
+          <p>Generert: ${new Date().toLocaleDateString('nb-NO')}</p>
+          
+          <div class="metrics">
+            <div class="metric">
+              <div class="metric-label">Total Inntekt</div>
+              <div class="metric-value">${totalRevenue.toLocaleString('nb-NO')} kr</div>
+            </div>
+            <div class="metric">
+              <div class="metric-label">Totale Bookinger</div>
+              <div class="metric-value">${totalBookings}</div>
+            </div>
+            <div class="metric">
+              <div class="metric-label">Gjennomsnittlig Utnyttelse</div>
+              <div class="metric-value">${avgUtilization.toFixed(1)}%</div>
+            </div>
+            <div class="metric">
+              <div class="metric-label">Antall Biler</div>
+              <div class="metric-value">${performanceData.length}</div>
+            </div>
+          </div>
+
+          <h2>Ytelse per bil</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>Bil</th>
+                <th>Bookinger</th>
+                <th>Timer</th>
+                <th>Inntekt</th>
+                <th>Utnyttelse</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${performanceData.map(cart => `
+                <tr>
+                  <td><strong>${cart.cartName}</strong><br><small>ID: ${cart.cartId}</small></td>
+                  <td>${cart.totalBookings}</td>
+                  <td>${cart.totalHours}h</td>
+                  <td>${cart.totalRevenue.toLocaleString('nb-NO')} kr</td>
+                  <td>${cart.utilizationPercentage.toFixed(1)}%</td>
+                  <td class="status-${cart.utilizationPercentage > 70 ? 'excellent' : cart.utilizationPercentage > 40 ? 'good' : 'low'}">
+                    ${cart.utilizationPercentage > 70 ? '⭐ Utmerket' : cart.utilizationPercentage > 40 ? '✓ God' : '⚠️ Lav'}
+                  </td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+
+          <button onclick="window.print()" style="background: #0066CC; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; font-size: 16px;">🖨️ Skriv ut / Lagre som PDF</button>
+        </body>
+      </html>
+    `;
+
+    printWindow.document.write(htmlContent);
+    printWindow.document.close();
+  }
+
   return (
     <div className="page-container">
       <div className="page-header">
@@ -144,6 +265,19 @@ function CartPerformancePage() {
         </div>
       ) : (
         <>
+          {/* Export Actions */}
+          <div className="export-actions">
+            <button className="btn-secondary" onClick={exportPerformanceCSV}>
+              📄 Eksporter CSV
+            </button>
+            <button className="btn-secondary" onClick={exportPerformancePDF}>
+              📑 Eksporter PDF
+            </button>
+            <button className="btn-secondary" onClick={() => alert('E-post funksjonalitet kommer snart!')}>
+              📧 Send på e-post
+            </button>
+          </div>
+
           {/* Summary Metrics */}
           <div className="metrics-grid">
             <div className="metric-card">

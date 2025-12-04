@@ -170,6 +170,85 @@ function RevenueReportPage() {
     a.click();
   }
 
+  function exportToPDF() {
+    const printWindow = window.open('', '_blank');
+    if (!printWindow) return;
+
+    const htmlContent = `
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <title>Inntektsrapport</title>
+          <style>
+            body { font-family: Arial, sans-serif; padding: 20px; }
+            h1 { color: #0066CC; }
+            .metrics { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin: 20px 0; }
+            .metric { background: #f5f5f5; padding: 15px; border-radius: 8px; }
+            .metric-label { font-size: 12px; color: #666; }
+            .metric-value { font-size: 24px; font-weight: bold; color: #0066CC; }
+            table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+            th, td { padding: 10px; text-align: left; border-bottom: 1px solid #ddd; }
+            th { background: #f5f5f5; font-weight: bold; }
+            @media print { button { display: none; } }
+          </style>
+        </head>
+        <body>
+          <h1>📊 Inntektsrapport</h1>
+          <p>Periode: ${startDate} til ${endDate}</p>
+          <p>Generert: ${new Date().toLocaleDateString('nb-NO')}</p>
+          
+          <div class="metrics">
+            <div class="metric">
+              <div class="metric-label">Total Inntekt</div>
+              <div class="metric-value">${metrics.totalRevenue.toLocaleString('nb-NO')} kr</div>
+            </div>
+            <div class="metric">
+              <div class="metric-label">Totale Bookinger</div>
+              <div class="metric-value">${metrics.totalBookings}</div>
+            </div>
+            <div class="metric">
+              <div class="metric-label">Gjennomsnitt per dag</div>
+              <div class="metric-value">${metrics.averagePerDay.toFixed(2)} kr</div>
+            </div>
+            <div class="metric">
+              <div class="metric-label">Totale Rabatter</div>
+              <div class="metric-value">${metrics.totalDiscounts.toLocaleString('nb-NO')} kr</div>
+            </div>
+          </div>
+
+          <h2>Detaljert oversikt</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>Dato</th>
+                <th>Inntekt</th>
+                <th>Bookinger</th>
+                <th>Medlemsinntekt</th>
+                <th>Ikke-medlemsinntekt</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${revenueData.map(item => `
+                <tr>
+                  <td>${item.date}</td>
+                  <td>${item.revenue.toLocaleString('nb-NO')} kr</td>
+                  <td>${item.bookings}</td>
+                  <td>${item.memberRevenue.toLocaleString('nb-NO')} kr</td>
+                  <td>${item.nonMemberRevenue.toLocaleString('nb-NO')} kr</td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+
+          <button onclick="window.print()" style="background: #0066CC; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; font-size: 16px;">🖨️ Skriv ut / Lagre som PDF</button>
+        </body>
+      </html>
+    `;
+
+    printWindow.document.write(htmlContent);
+    printWindow.document.close();
+  }
+
   const pieData = [
     { name: 'Medlemmer', value: metrics.memberPercentage, color: '#0066CC' },
     { name: 'Ikke-medlemmer', value: metrics.nonMemberPercentage, color: '#00A86B' }
@@ -179,9 +258,17 @@ function RevenueReportPage() {
     <div className="page-container">
       <div className="page-header">
         <h1 className="page-title">💰 Inntektsrapport</h1>
-        <button className="btn-primary" onClick={exportToCSV} disabled={loading || revenueData.length === 0}>
-          📥 Eksporter CSV
-        </button>
+        <div className="export-actions">
+          <button className="btn-secondary" onClick={exportToCSV} disabled={loading || revenueData.length === 0}>
+            📄 Eksporter CSV
+          </button>
+          <button className="btn-secondary" onClick={exportToPDF} disabled={loading || revenueData.length === 0}>
+            📑 Eksporter PDF
+          </button>
+          <button className="btn-secondary" onClick={() => alert('E-post funksjonalitet kommer snart!')} disabled={loading || revenueData.length === 0}>
+            📧 Send på e-post
+          </button>
+        </div>
       </div>
 
       {/* Date Range Controls */}

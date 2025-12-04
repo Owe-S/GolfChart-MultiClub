@@ -2856,6 +2856,21 @@ body {
 }
 
 /* ===========================
+   Export Actions
+   =========================== */
+
+.export-actions {
+  display: flex;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+  margin-bottom: var(--space-lg);
+}
+
+.page-header .export-actions {
+  margin-bottom: 0;
+}
+
+/* ===========================
    Cart Performance Page
    =========================== */
 
