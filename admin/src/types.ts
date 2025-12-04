@@ -30,21 +30,26 @@ export interface Rental {
     id: string; // Firestore document ID
     cartId: number;
     renterName: string;
-    isMember: boolean;
+    playerId?: string; // Format: 073-1234567
+    isMember?: boolean;
     membershipNumber?: string;
-    hasDoctorsNote: boolean;
+    hasDoctorsNote?: boolean;
     holes: 9 | 18;
     price: number;
-    paymentMethod: PaymentMethod | null;
+    paymentMethod?: PaymentMethod | null;
     notes?: string;
     phone: string; // Phone number
     email?: string; // Email address
     startTime: import('firebase/firestore').Timestamp; // Firestore Timestamp
     endTime?: string | null; // ISO string
-    notificationMethod: 'email' | 'sms';
-    contactInfo: string;
-    reminderSent: boolean;
+    chargingEndTime?: string; // Play time + charging period
+    notificationMethod?: 'email' | 'sms';
+    contactInfo?: string;
+    reminderSent?: boolean;
+    status?: string; // 'confirmed', 'cancelled', 'pending'
     createdAt?: import('firebase/firestore').Timestamp; // Firestore Timestamp
+    cancelledAt?: import('firebase/firestore').Timestamp;
+    cancellationReason?: string;
 }
 
 export interface AppState {

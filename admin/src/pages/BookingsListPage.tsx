@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { collection, query, orderBy, onSnapshot } from 'firebase/firestore';
+import { collection, query, orderBy, onSnapshot, doc, updateDoc, Timestamp } from 'firebase/firestore';
 import { db } from '../firebase';
 import type { Rental } from '../types';
 import SkeletonTable from '../components/SkeletonTable';
@@ -10,6 +10,9 @@ function BookingsListPage() {
   const [rentals, setRentals] = useState<Rental[]>([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState<'all' | 'today' | 'upcoming' | 'past'>('all');
+  const [cancelModalOpen, setCancelModalOpen] = useState(false);
+  const [selectedRentalId, setSelectedRentalId] = useState<string | null>(null);
+  const [cancellationReason, setCancellationReason] = useState('');
 
   useEffect(() => {
     const rentalsRef = collection(db, 'rentals');
@@ -27,6 +30,29 @@ function BookingsListPage() {
     return () => unsubscribe();
   }, []);
 
+  const handleCancelRental = async () => {
+    if (!selectedRentalId || !cancellationReason.trim()) {
+      alert('Vennligst fyll inn avslutningsgrunn');
+      return;
+    }
+
+    try {
+      const rentalRef = doc(db, 'rentals', selectedRentalId);
+      await updateDoc(rentalRef, {
+        status: 'cancelled',
+        cancelledAt: Timestamp.now(),
+        cancellationReason: cancellationReason.trim(),
+      });
+      setCancelModalOpen(false);
+      setSelectedRentalId(null);
+      setCancellationReason('');
+      alert('✓ Booking avsluttet');
+    } catch (error) {
+      console.error('Error cancelling rental:', error);
+      alert('✗ Feil ved avslutting av booking');
+    }
+  };
+
   const filteredRentals = rentals.filter(rental => {
     const now = new Date();
     const startTime = rental.startTime.toDate();
@@ -35,11 +61,16 @@ function BookingsListPage() {
     const tomorrow = new Date(today);
     tomorrow.setDate(tomorrow.getDate() + 1);
 
+    // Skip cancelled rentals unless explicitly looking at all
+    if (rental.status === 'cancelled' && filter !== 'all') {
+      return false;
+    }
+
     switch (filter) {
       case 'today':
         return startTime >= today && startTime < tomorrow;
       case 'upcoming':
-        return startTime > now;
+        return startTime > now && rental.status !== 'cancelled';
       case 'past':
         return startTime < now;
       default:
@@ -102,6 +133,7 @@ function BookingsListPage() {
                 <th>Hull</th>
                 <th>Pris</th>
                 <th>Status</th>
+                <th>Handling</th>
               </tr>
             </thead>
             <tbody>
@@ -111,9 +143,10 @@ function BookingsListPage() {
               const isActive = startTime <= now && 
                 new Date(startTime.getTime() + (rental.holes === 18 ? 4 : 2) * 60 * 60 * 1000) >= now;
               const isPast = new Date(startTime.getTime() + (rental.holes === 18 ? 4 : 2) * 60 * 60 * 1000) < now;
+              const isCancelled = rental.status === 'cancelled';
 
               return (
-                <tr key={rental.id} className={isActive ? 'active-row' : ''}>
+                <tr key={rental.id} className={isActive ? 'active-row' : ''} style={{ opacity: isCancelled ? 0.6 : 1 }}>
                   <td>
                     {startTime.toLocaleDateString('nb-NO', { 
                       day: '2-digit', 
@@ -144,12 +177,27 @@ function BookingsListPage() {
                   <td>{rental.holes} hull</td>
                   <td><strong>{rental.price} kr</strong></td>
                   <td>
-                    {isActive ? (
+                    {isCancelled ? (
+                      <span className="status-badge cancelled">✗ Avsluttet</span>
+                    ) : isActive ? (
                       <span className="status-badge active">● Aktiv</span>
                     ) : isPast ? (
                       <span className="status-badge completed">✓ Fullført</span>
                     ) : (
                       <span className="status-badge upcoming">⏰ Kommende</span>
+                    )}
+                  </td>
+                  <td>
+                    {!isCancelled && startTime > now && (
+                      <button
+                        className="btn-cancel-rental"
+                        onClick={() => {
+                          setSelectedRentalId(rental.id);
+                          setCancelModalOpen(true);
+                        }}
+                      >
+                        Avslut
+                      </button>
                     )}
                   </td>
                 </tr>
@@ -165,6 +213,51 @@ function BookingsListPage() {
           />
         )}
       </div>
+
+      {/* Cancellation Modal */}
+      {cancelModalOpen && (
+        <div className="modal-overlay" onClick={() => setCancelModalOpen(false)}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <h2>Avslut booking</h2>
+            <p style={{ color: '#666', marginBottom: '20px' }}>
+              Vennligst fyll inn årsaken til avslutning:
+            </p>
+            <textarea
+              placeholder="Årsak til avslutning (f.eks. spiller er syk, værforhold, etc.)"
+              value={cancellationReason}
+              onChange={(e) => setCancellationReason(e.target.value)}
+              style={{
+                width: '100%',
+                padding: '10px',
+                borderRadius: '4px',
+                border: '1px solid #ddd',
+                fontFamily: 'inherit',
+                fontSize: '14px',
+                minHeight: '80px',
+                resize: 'vertical',
+              }}
+            />
+            <div style={{ marginTop: '20px', display: 'flex', gap: '10px', justifyContent: 'flex-end' }}>
+              <button
+                className="btn-secondary"
+                onClick={() => {
+                  setCancelModalOpen(false);
+                  setCancellationReason('');
+                }}
+              >
+                Avbryt
+              </button>
+              <button
+                className="btn-primary"
+                onClick={handleCancelRental}
+                style={{ backgroundColor: '#d32f2f' }}
+              >
+                Avslut booking
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
