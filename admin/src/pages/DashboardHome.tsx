@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { collection, query, where, onSnapshot, Timestamp } from 'firebase/firestore';
+import { collection, onSnapshot } from 'firebase/firestore';
 import { db } from '../firebase';
 import type { Rental } from '../types';
 import '../ski-gk-theme.css';
@@ -28,24 +28,9 @@ function DashboardHome() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Get today's date range
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    const todayStart = Timestamp.fromDate(today);
-    
-    const tomorrow = new Date(today);
-    tomorrow.setDate(tomorrow.getDate() + 1);
-    const todayEnd = Timestamp.fromDate(tomorrow);
-
-    // Query for today's rentals
+    // Query all rentals
     const rentalsRef = collection(db, 'rentals');
-    const todayQuery = query(
-      rentalsRef,
-      where('startTime', '>=', todayStart),
-      where('startTime', '<', todayEnd)
-    );
-
-    const unsubscribe = onSnapshot(todayQuery, (snapshot) => {
+    const unsubscribe = onSnapshot(rentalsRef, (snapshot) => {
       const rentals: Rental[] = [];
       snapshot.forEach((doc) => {
         rentals.push({ id: doc.id, ...doc.data() } as Rental);
