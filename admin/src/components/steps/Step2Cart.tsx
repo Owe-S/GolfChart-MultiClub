@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import type { BookingData } from '../BookingStepper';
+import type { BookingData } from '../../types';
 import { checkAvailability, getCarts } from '../../firebaseService';
 import type { GolfCart } from '../../types';
 

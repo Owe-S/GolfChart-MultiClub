@@ -1,4 +1,4 @@
-import type { BookingData } from '../BookingStepper';
+import type { BookingData } from '../../types';
 import Calendar from '../Calendar';
 import { calculatePrice } from '../../utils';
 

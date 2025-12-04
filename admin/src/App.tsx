@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import './ski-gk-theme.css';
-import BookingStepper, { INITIAL_DATA } from './components/BookingStepper';
-import type { BookingData } from './components/BookingStepper';
+import BookingStepper from './components/BookingStepper';
+import type { BookingData } from './types';
+import { INITIAL_DATA } from './types';
 import Calendar from './components/Calendar';
 import AvailabilityGrid from './components/AvailabilityGrid';
 import { initializeDatabase } from './initDatabase';

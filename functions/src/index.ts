@@ -1,4 +1,4 @@
-import * as functions from "firebase-functions";
+import { https } from "firebase-functions/v2";
 import * as admin from "firebase-admin";
 import cors from "cors";
 
@@ -28,7 +28,7 @@ interface CreateRentalRequest {
  * Creates a new rental transactionally.
  * Prevents double-booking of the same cart.
  */
-export const createRental = functions.region('europe-west1').https.onRequest((req, res) => {
+export const createRental = https.onRequest({ region: 'europe-west3' }, (req, res) => {
     corsHandler(req, res, async () => {
         if (req.method !== 'POST') {
             res.status(405).send('Method Not Allowed');
@@ -106,7 +106,7 @@ export const createRental = functions.region('europe-west1').https.onRequest((re
  * Checks availability for a given date and time.
  * Returns a list of available cart IDs.
  */
-export const checkAvailability = functions.region('europe-west1').https.onRequest((req, res) => {
+export const checkAvailability = https.onRequest({ region: 'europe-west3' }, (req, res) => {
     corsHandler(req, res, async () => {
         const { date, time, holes } = req.query;
 

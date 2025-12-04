@@ -7,33 +7,8 @@ import Step2Cart from './steps/Step2Cart';
 import Step3Details from './steps/Step3Details';
 import Step4Review from './steps/Step4Review';
 
-export interface BookingData {
-    date: string;
-    time: string;
-    holes: 9 | 18;
-    cartId: number | null;
-    cartName: string;
-    name: string;
-    isMember: boolean;
-    membershipNumber: string;
-    hasDoctorsNote: boolean;
-    notificationMethod: 'email' | 'sms';
-    contactInfo: string;
-}
-
-export const INITIAL_DATA: BookingData = {
-    date: new Date().toISOString().split('T')[0],
-    time: '',
-    holes: 18,
-    cartId: null,
-    cartName: '',
-    name: '',
-    isMember: false,
-    membershipNumber: '',
-    hasDoctorsNote: false,
-    notificationMethod: 'email',
-    contactInfo: ''
-};
+import type { BookingData } from '../types';
+// INITIAL_DATA is defined in types for external use; not needed locally here
 
 interface Props {
     currentStep: number;

@@ -1,0 +1,1 @@
+npm install -g firebase-toolsnpm install -g firebase-tools

@@ -1,0 +1,22 @@
+Vi bruker MkDocs med Material theme for å lage dokumentasjonen!
+
+Setup:
+
+mkdocs.yml - Konfigurasjonsfil
+docs - Markdown-filer
+mkdocs build - Bygger statiske HTML-filer til site
+mkdocs gh-deploy - Publiserer til GitHub Pages
+Kommandoer vi har brukt:
+
+
+# Bygge lokalt (for testing)mkdocs build# Publisere til GitHub Pagesmkdocs gh-deploy --force
+Resultat: https://Owe-S.github.io/workspace-setup-gkit/
+
+Fordeler med MkDocs:
+
+✅ Enkle Markdown-filer (ikke HTML)
+✅ Material theme (moderne design)
+✅ Automatisk navigasjon fra mkdocs.yml
+✅ Søkefunksjon innebygd
+✅ GitHub Pages-integrasjon
+✅ Syntax highlighting for kode

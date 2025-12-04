@@ -42,7 +42,7 @@ export interface Rental {
     notificationMethod: 'email' | 'sms';
     contactInfo: string;
     reminderSent: boolean;
-    createdAt?: any; // Firestore Timestamp
+    createdAt?: import('firebase/firestore').Timestamp; // Firestore Timestamp
 }
 
 export interface AppState {
@@ -67,3 +67,32 @@ export const BOOKING_LEAD_DAYS = 7;
 export const PLAY_DURATION = { 9: 135, 18: 270 }; // minutes
 export const CHARGE_DURATION = { 9: 30, 18: 60 }; // minutes
 export const REMINDER_WINDOW_HOURS = 24;
+
+// Booking types used by BookingStepper
+export interface BookingData {
+    date: string;
+    time: string;
+    holes: 9 | 18;
+    cartId: number | null;
+    cartName: string;
+    name: string;
+    isMember: boolean;
+    membershipNumber: string;
+    hasDoctorsNote: boolean;
+    notificationMethod: NotificationMethod;
+    contactInfo: string;
+}
+
+export const INITIAL_DATA: BookingData = {
+    date: new Date().toISOString().split('T')[0],
+    time: '',
+    holes: 18,
+    cartId: null,
+    cartName: '',
+    name: '',
+    isMember: false,
+    membershipNumber: '',
+    hasDoctorsNote: false,
+    notificationMethod: 'email',
+    contactInfo: ''
+};

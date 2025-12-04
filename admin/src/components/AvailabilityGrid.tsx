@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { getRentals, getCarts } from '../firebaseService';
 import { PLAY_DURATION, CHARGE_DURATION } from '../types';
 import type { GolfCart } from '../types';
@@ -62,14 +62,8 @@ function AvailabilityGrid({ selectedDate, onSlotSelect }: AvailabilityGridProps)
         loadCarts();
     }, []);
 
-    // Load availability when date changes
-    useEffect(() => {
-        if (carts.length > 0) {
-            loadAvailabilityData();
-        }
-    }, [displayDate, carts]);
-
-    async function loadAvailabilityData() {
+    // Memoize loader to satisfy exhaustive-deps and avoid re-creating
+    const loadAvailabilityData = useCallback(async () => {
         setLoading(true);
         try {
             // Get rentals for the selected date
@@ -131,7 +125,14 @@ function AvailabilityGrid({ selectedDate, onSlotSelect }: AvailabilityGridProps)
         } finally {
             setLoading(false);
         }
-    }
+    }, [displayDate, carts, timeSlots]);
+
+    // Load availability when date or carts change
+    useEffect(() => {
+        if (carts.length > 0) {
+            loadAvailabilityData();
+        }
+    }, [loadAvailabilityData, carts.length]);
 
     function handleCellClick(cart: GolfCart, timeSlot: TimeSlot) {
         const key = `${cart.id}-${timeSlot.label}`;
@@ -170,7 +171,7 @@ function AvailabilityGrid({ selectedDate, onSlotSelect }: AvailabilityGridProps)
 
             {/* Time slot rows */}
             {timeSlots.map(slot => (
-                <div key={slot.label} style={{ display: 'contents' }}>
+                <div key={slot.label} className="ski-grid-row-contents">
                     <div className="ski-grid-time">{slot.label}</div>
                     {carts.map(cart => {
                         const key = `${cart.id}-${slot.label}`;

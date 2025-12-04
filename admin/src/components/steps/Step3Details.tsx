@@ -1,4 +1,4 @@
-import type { BookingData } from '../BookingStepper';
+import type { BookingData } from '../../types';
 import { calculatePrice } from '../../utils';
 import { PRICES, DOCTOR_NOTE_DISCOUNT } from '../../types';
 

@@ -1,0 +1,490 @@
+/* Golf Cart Control System - ADMIN VERSION - Extra Scoped for CSADMIN */
+@import url(https://fonts.googleapis.com/css?family=Roboto:300,400,500,700);
+
+/* IMPORTANT: All styles are scoped within .golfbil-admin-app to prevent conflicts with CSADMIN */
+
+.golfbil-admin-app {
+  /* SKI Website Color Scheme Integration */
+  --primary-color: #1982ec; /* SKI Blue */
+  --secondary-color: #85b11a; /* SKI Green */
+  --accent-color: #ed9700; /* SKI Orange */
+  --text-color: #333;
+  --light-text-color: #f7f7f7;
+  --border-color: #eee;
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --background-color: #f3f3f3; /* SKI Background */
+
+  /* Golf-specific status colors */
+  --status-available: #85b11a; /* SKI Green for available */
+  --status-rented: #ed9700; /* SKI Orange for rented */
+  --status-out-of-order: #bb0000; /* SKI Red for out of order */
+  --status-success: #85b11a;
+  --status-error: #bb0000;
+
+  /* SKI Website Typography */
+  --font-family: 'Roboto', sans-serif;
+  --border-radius: 8px;
+  --box-shadow: 0 4px 8px var(--shadow-color);
+}
+
+/* Admin App Container - STRONGLY scoped to prevent admin conflicts */
+.golfbil-admin-app {
+  font-family: var(--font-family) !important;
+  background-color: var(--background-color) !important;
+  min-height: 100vh;
+  margin: 0 !important;
+  padding: 20px !important;
+  font-size: 14px;
+  text-rendering: optimizelegibility;
+  -webkit-font-smoothing: antialiased;
+  position: relative;
+  z-index: 10; /* Ensure it's above admin styles */
+}
+
+.golfbil-admin-app * {
+  box-sizing: border-box !important;
+}
+
+.golfbil-admin-app #root {
+  display: flex !important;
+  flex-direction: column !important;
+  min-height: calc(100vh - 40px) !important;
+}
+
+/* Header - Styled like SKI topline but as a card - ADMIN VERSION */
+.golfbil-admin-app header {
+  background-color: var(--primary-color) !important;
+  color: var(--light-text-color) !important;
+  padding: 1rem 1.5rem !important;
+  text-align: center !important;
+  box-shadow: var(--box-shadow) !important;
+  position: relative !important;
+  border-radius: var(--border-radius) !important;
+  margin-bottom: 20px !important;
+}
+
+.golfbil-admin-app header h1 {
+  margin: 0 !important;
+  font-size: 24px !important;
+  font-weight: 400 !important;
+}
+
+.golfbil-admin-app header .department-label {
+  position: absolute !important;
+  top: 10px !important;
+  left: 15px !important;
+  font-size: 12px !important;
+  opacity: 0.8 !important;
+}
+
+.golfbil-admin-app #info-btn {
+  position: absolute !important;
+  top: 10px !important;
+  right: 15px !important;
+  background: none !important;
+  border: none !important;
+  color: var(--light-text-color) !important;
+  cursor: pointer !important;
+  font-size: 18px !important;
+  padding: 5px !important;
+  border-radius: 4px !important;
+  transition: background-color 0.3s ease !important;
+}
+
+.golfbil-admin-app #info-btn:hover {
+  background-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+/* Navigation - SKI style with prefixed classes - ADMIN SAFE */
+.golfbil-admin-app .golfbil-main-nav {
+  display: flex !important;
+  justify-content: center !important;
+  background-color: #fff !important;
+  box-shadow: var(--box-shadow) !important;
+  border-radius: var(--border-radius) !important;
+  margin-bottom: 20px !important;
+  overflow: hidden !important;
+}
+
+.golfbil-admin-app .golfbil-nav-item {
+  padding: 1rem 2rem !important;
+  border: none !important;
+  background: none !important;
+  cursor: pointer !important;
+  font-size: 1rem !important;
+  transition: all 0.3s ease !important;
+  color: var(--text-color) !important;
+  text-decoration: none !important;
+  border-right: 1px solid var(--border-color) !important;
+}
+
+.golfbil-admin-app .golfbil-nav-item:last-child {
+  border-right: none !important;
+}
+
+.golfbil-admin-app .golfbil-nav-item.active {
+  background-color: var(--primary-color) !important;
+  color: var(--light-text-color) !important;
+}
+
+.golfbil-admin-app .golfbil-nav-item:hover {
+  background-color: var(--accent-color) !important;
+  color: var(--light-text-color) !important;
+}
+
+/* AI Assistant - ADMIN SAFE */
+.golfbil-admin-app .golfbil-ai-assistant {
+  background: white !important;
+  border-radius: var(--border-radius) !important;
+  box-shadow: var(--box-shadow) !important;
+  margin-bottom: 20px !important;
+  padding: 20px !important;
+}
+
+.golfbil-admin-app .golfbil-chat-history {
+  max-height: 300px !important;
+  overflow-y: auto !important;
+  border: 1px solid var(--border-color) !important;
+  border-radius: var(--border-radius) !important;
+  padding: 15px !important;
+  margin-bottom: 15px !important;
+  background-color: #fafafa !important;
+}
+
+.golfbil-admin-app .golfbil-chat-message {
+  margin-bottom: 15px !important;
+  padding: 10px !important;
+  border-radius: var(--border-radius) !important;
+}
+
+.golfbil-admin-app .golfbil-user-message {
+  background-color: var(--primary-color) !important;
+  color: var(--light-text-color) !important;
+  margin-left: 20% !important;
+}
+
+.golfbil-admin-app .golfbil-model-message {
+  background-color: white !important;
+  border: 1px solid var(--border-color) !important;
+  margin-right: 20% !important;
+}
+
+.golfbil-admin-app .golfbil-thinking-indicator {
+  color: var(--accent-color) !important;
+  font-style: italic !important;
+  padding: 10px !important;
+}
+
+.golfbil-admin-app .golfbil-ai-input-form {
+  display: flex !important;
+  gap: 10px !important;
+}
+
+.golfbil-admin-app .golfbil-ai-input-form input {
+  flex: 1 !important;
+  padding: 12px !important;
+  border: 1px solid var(--border-color) !important;
+  border-radius: var(--border-radius) !important;
+  font-family: var(--font-family) !important;
+}
+
+/* Buttons - ADMIN CONFLICT SAFE */
+.golfbil-admin-app .golfbil-btn {
+  padding: 10px 20px !important;
+  border: none !important;
+  border-radius: var(--border-radius) !important;
+  cursor: pointer !important;
+  font-family: var(--font-family) !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  transition: all 0.3s ease !important;
+  text-decoration: none !important;
+  display: inline-block !important;
+  text-align: center !important;
+  line-height: 1 !important;
+}
+
+.golfbil-admin-app .golfbil-btn-primary {
+  background-color: var(--primary-color) !important;
+  color: var(--light-text-color) !important;
+}
+
+.golfbil-admin-app .golfbil-btn-primary:hover {
+  background-color: #0f6bd8 !important;
+}
+
+.golfbil-admin-app .golfbil-btn-secondary {
+  background-color: var(--secondary-color) !important;
+  color: white !important;
+}
+
+.golfbil-admin-app .golfbil-btn-secondary:hover {
+  background-color: #739915 !important;
+}
+
+.golfbil-admin-app .golfbil-btn-accent {
+  background-color: var(--accent-color) !important;
+  color: white !important;
+}
+
+.golfbil-admin-app .golfbil-btn-accent:hover {
+  background-color: #d18600 !important;
+}
+
+.golfbil-admin-app .golfbil-btn-danger {
+  background-color: var(--status-error) !important;
+  color: white !important;
+}
+
+.golfbil-admin-app .golfbil-btn-danger:hover {
+  background-color: #a00000 !important;
+}
+
+/* Cart Grid - ADMIN SAFE */
+.golfbil-admin-app .golfbil-cart-grid {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)) !important;
+  gap: 20px !important;
+  padding: 0 !important;
+}
+
+.golfbil-admin-app .golfbil-cart-card {
+  background: white !important;
+  border-radius: var(--border-radius) !important;
+  box-shadow: var(--box-shadow) !important;
+  overflow: hidden !important;
+  transition: transform 0.3s ease, box-shadow 0.3s ease !important;
+}
+
+.golfbil-admin-app .golfbil-cart-card:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 8px 16px var(--shadow-color) !important;
+}
+
+.golfbil-admin-app .golfbil-card-header {
+  padding: 15px !important;
+  color: white !important;
+  font-weight: 500 !important;
+  text-align: center !important;
+}
+
+.golfbil-admin-app .golfbil-card-header.status-available { 
+  background-color: var(--status-available) !important; 
+}
+.golfbil-admin-app .golfbil-card-header.status-rented { 
+  background-color: var(--status-rented) !important; 
+}
+.golfbil-admin-app .golfbil-card-header.status-out_of_order { 
+  background-color: var(--status-out-of-order) !important; 
+}
+
+.golfbil-admin-app .golfbil-card-body {
+  padding: 20px !important;
+}
+
+.golfbil-admin-app .golfbil-info-item {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  padding: 8px 0 !important;
+  border-bottom: 1px solid #f0f0f0 !important;
+}
+
+.golfbil-admin-app .golfbil-info-item:last-child {
+  border-bottom: none !important;
+}
+
+.golfbil-admin-app .golfbil-info-label {
+  color: #666 !important;
+  font-weight: 500 !important;
+}
+
+.golfbil-admin-app .golfbil-info-value {
+  font-weight: 400 !important;
+}
+
+/* Forms - ADMIN CONFLICT SAFE */
+.golfbil-admin-app .golfbil-form-group {
+  margin-bottom: 20px !important;
+}
+
+.golfbil-admin-app .golfbil-label {
+  display: block !important;
+  margin-bottom: 8px !important;
+  font-weight: 500 !important;
+  color: var(--text-color) !important;
+}
+
+.golfbil-admin-app .golfbil-input,
+.golfbil-admin-app .golfbil-select,
+.golfbil-admin-app .golfbil-textarea {
+  width: 100% !important;
+  padding: 12px !important;
+  border: 1px solid var(--border-color) !important;
+  border-radius: var(--border-radius) !important;
+  font-family: var(--font-family) !important;
+  font-size: 14px !important;
+  transition: border-color 0.3s ease !important;
+}
+
+.golfbil-admin-app .golfbil-input:focus,
+.golfbil-admin-app .golfbil-select:focus,
+.golfbil-admin-app .golfbil-textarea:focus {
+  outline: none !important;
+  border-color: var(--primary-color) !important;
+}
+
+/* Modal - ADMIN SAFE */
+.golfbil-admin-app .golfbil-modal-backdrop {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  background: rgba(0, 0, 0, 0.5) !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  z-index: 10000 !important; /* Higher than admin panel */
+}
+
+.golfbil-admin-app .golfbil-modal {
+  background: white !important;
+  border-radius: var(--border-radius) !important;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3) !important;
+  max-width: 500px !important;
+  width: 90% !important;
+  max-height: 90vh !important;
+  overflow-y: auto !important;
+}
+
+.golfbil-admin-app .golfbil-modal-header {
+  padding: 20px !important;
+  background-color: var(--primary-color) !important;
+  color: var(--light-text-color) !important;
+  border-radius: var(--border-radius) var(--border-radius) 0 0 !important;
+}
+
+.golfbil-admin-app .golfbil-modal-title {
+  margin: 0 !important;
+  font-size: 18px !important;
+  font-weight: 500 !important;
+}
+
+.golfbil-admin-app .golfbil-modal-body {
+  padding: 20px !important;
+}
+
+.golfbil-admin-app .golfbil-modal-footer {
+  padding: 20px !important;
+  border-top: 1px solid var(--border-color) !important;
+  display: flex !important;
+  justify-content: flex-end !important;
+  gap: 10px !important;
+}
+
+/* Tables - ADMIN CONFLICT SAFE */
+.golfbil-admin-app table {
+  width: 100% !important;
+  border-collapse: collapse !important;
+  background: white !important;
+  border-radius: var(--border-radius) !important;
+  overflow: hidden !important;
+  box-shadow: var(--box-shadow) !important;
+}
+
+.golfbil-admin-app table th,
+.golfbil-admin-app table td {
+  padding: 12px !important;
+  text-align: left !important;
+  border-bottom: 1px solid var(--border-color) !important;
+}
+
+.golfbil-admin-app table th {
+  background-color: var(--primary-color) !important;
+  color: var(--light-text-color) !important;
+  font-weight: 500 !important;
+}
+
+.golfbil-admin-app table tr:hover {
+  background-color: #f8f9fa !important;
+}
+
+/* Responsive design - ADMIN SAFE */
+@media (max-width: 768px) {
+  .golfbil-admin-app {
+    padding: 10px !important;
+  }
+  
+  .golfbil-admin-app .golfbil-cart-grid {
+    grid-template-columns: 1fr !important;
+    gap: 15px !important;
+  }
+  
+  .golfbil-admin-app .golfbil-nav-item {
+    padding: 0.8rem 1rem !important;
+    font-size: 0.9rem !important;
+  }
+  
+  .golfbil-admin-app .golfbil-modal {
+    width: 95% !important;
+    margin: 20px !important;
+  }
+}
+
+/* Status indicators */
+.golfbil-admin-app .golfbil-status-badge {
+  display: inline-block !important;
+  padding: 4px 8px !important;
+  border-radius: 12px !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  text-transform: uppercase !important;
+}
+
+.golfbil-admin-app .golfbil-status-available {
+  background-color: rgba(133, 177, 26, 0.1) !important;
+  color: var(--status-available) !important;
+}
+
+.golfbil-admin-app .golfbil-status-rented {
+  background-color: rgba(237, 151, 0, 0.1) !important;
+  color: var(--status-rented) !important;
+}
+
+.golfbil-admin-app .golfbil-status-out-of-order {
+  background-color: rgba(187, 0, 0, 0.1) !important;
+  color: var(--status-error) !important;
+}
+
+/* Loading and animations */
+.golfbil-admin-app .golfbil-loading {
+  display: inline-block !important;
+  width: 20px !important;
+  height: 20px !important;
+  border: 2px solid #f3f3f3 !important;
+  border-top: 2px solid var(--primary-color) !important;
+  border-radius: 50% !important;
+  animation: golfbil-spin 1s linear infinite !important;
+}
+
+@keyframes golfbil-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Utility classes - ADMIN SAFE */
+.golfbil-admin-app .golfbil-text-center { text-align: center !important; }
+.golfbil-admin-app .golfbil-text-right { text-align: right !important; }
+.golfbil-admin-app .golfbil-text-left { text-align: left !important; }
+
+.golfbil-admin-app .golfbil-mb-1 { margin-bottom: 8px !important; }
+.golfbil-admin-app .golfbil-mb-2 { margin-bottom: 16px !important; }
+.golfbil-admin-app .golfbil-mb-3 { margin-bottom: 24px !important; }
+
+.golfbil-admin-app .golfbil-p-1 { padding: 8px !important; }
+.golfbil-admin-app .golfbil-p-2 { padding: 16px !important; }
+.golfbil-admin-app .golfbil-p-3 { padding: 24px !important; }
+
+.golfbil-admin-app .golfbil-hidden { display: none !important; }
+.golfbil-admin-app .golfbil-visible { display: block !important; }

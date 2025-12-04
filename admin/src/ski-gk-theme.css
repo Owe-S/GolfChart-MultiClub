@@ -709,6 +709,11 @@ body {
   transition: background-color 0.2s;
 }
 
+/* Avoid inline styles: class for display contents rows */
+.ski-grid-row-contents {
+  display: contents;
+}
+
 .ski-grid-cell:hover {
   filter: brightness(0.95);
 }

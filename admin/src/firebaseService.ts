@@ -32,7 +32,7 @@ export const getCarts = async (): Promise<GolfCart[]> => {
  */
 export const checkAvailability = async (date: string, time: string, holes: 9 | 18): Promise<{ available: number, availableCartIds: number[] }> => {
     try {
-        const region = 'europe-west1';
+        const region = 'europe-west3';
         const projectId = 'golfbilkontroll-skigk';
         const baseUrl = `https://${region}-${projectId}.cloudfunctions.net`;
         const url = `${baseUrl}/checkAvailability?date=${encodeURIComponent(date)}&time=${encodeURIComponent(time)}&holes=${holes}`;
@@ -58,7 +58,7 @@ export const checkAvailability = async (date: string, time: string, holes: 9 | 1
  */
 export const createRental = async (rentalData: Omit<Rental, 'id' | 'createdAt'>): Promise<string> => {
     try {
-        const region = 'europe-west1';
+        const region = 'europe-west3';
         const projectId = 'golfbilkontroll-skigk';
         const baseUrl = `https://${region}-${projectId}.cloudfunctions.net`;
         const url = `${baseUrl}/createRental`;
