@@ -1,7 +1,7 @@
 import { useEffect, useState, useCallback } from 'react';
 import { getRentals, getCarts } from '../firebaseService';
 import { PLAY_DURATION, CHARGE_DURATION } from '../types';
-import type { GolfCart } from '../types';
+import type { GolfCart, Rental } from '../types';
 import '../ski-gk-theme.css';
 
 interface TimeSlot {
@@ -15,6 +15,7 @@ interface CellStatus {
     timeSlot: TimeSlot;
     status: 'available' | 'booked' | 'charging';
     rentalId?: string;
+    rental?: Rental;
 }
 
 interface AvailabilityGridProps {
@@ -45,6 +46,8 @@ function AvailabilityGrid({ selectedDate, onSlotSelect }: AvailabilityGridProps)
     const [carts, setCarts] = useState<GolfCart[]>([]);
     const [cellStatuses, setCellStatuses] = useState<Map<string, CellStatus>>(new Map());
     const [loading, setLoading] = useState(true);
+    const [hoveredCell, setHoveredCell] = useState<string | null>(null);
+    const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 });
 
     const timeSlots = generateTimeSlots();
     const displayDate = selectedDate || new Date().toISOString().split('T')[0];
@@ -104,7 +107,8 @@ function AvailabilityGrid({ selectedDate, onSlotSelect }: AvailabilityGridProps)
                             cartId: cart.id,
                             timeSlot: slot,
                             status,
-                            rentalId: conflictingRental.id
+                            rentalId: conflictingRental.id,
+                            rental: conflictingRental
                         });
                     } else {
                         // Check if we can book this slot (is there enough time?)
@@ -150,6 +154,19 @@ function AvailabilityGrid({ selectedDate, onSlotSelect }: AvailabilityGridProps)
         }
     }
 
+    function handleCellMouseEnter(event: React.MouseEvent<HTMLDivElement>, key: string) {
+        const rect = event.currentTarget.getBoundingClientRect();
+        setTooltipPosition({
+            x: rect.left + rect.width / 2,
+            y: rect.top - 10
+        });
+        setHoveredCell(key);
+    }
+
+    function handleCellMouseLeave() {
+        setHoveredCell(null);
+    }
+
     if (loading) {
         return (
             <div className="ski-text-center ski-mt-lg">
@@ -182,12 +199,77 @@ function AvailabilityGrid({ selectedDate, onSlotSelect }: AvailabilityGridProps)
                                 key={key}
                                 className={`ski-grid-cell ${status?.status || 'available'}`}
                                 onClick={() => handleCellClick(cart, slot)}
+                                onMouseEnter={(e) => handleCellMouseEnter(e, key)}
+                                onMouseLeave={handleCellMouseLeave}
                                 title={status?.status === 'available' ? 'Ledig' : status?.status === 'booked' ? 'Opptatt' : 'Lader'}
                             />
                         );
                     })}
                 </div>
             ))}
+
+            {/* Tooltip */}
+            {hoveredCell && cellStatuses.get(hoveredCell)?.rental && (
+                <div
+                    className="availability-tooltip"
+                    style={{
+                        left: `${tooltipPosition.x}px`,
+                        top: `${tooltipPosition.y}px`,
+                    }}
+                >
+                    {(() => {
+                        const rental = cellStatuses.get(hoveredCell)?.rental;
+                        if (!rental) return null;
+
+                        const startTime = rental.startTime.toDate();
+                        const endTime = new Date(startTime.getTime() + 
+                            (PLAY_DURATION[rental.holes] + CHARGE_DURATION[rental.holes]) * 60 * 1000);
+
+                        return (
+                            <div className="tooltip-content">
+                                <div className="tooltip-header">
+                                    <strong>{rental.renterName}</strong>
+                                    {rental.isMember && <span className="tooltip-badge">Medlem</span>}
+                                </div>
+                                <div className="tooltip-body">
+                                    <div className="tooltip-row">
+                                        <span className="tooltip-icon">📞</span>
+                                        <span>{rental.phone}</span>
+                                    </div>
+                                    {rental.email && (
+                                        <div className="tooltip-row">
+                                            <span className="tooltip-icon">✉️</span>
+                                            <span>{rental.email}</span>
+                                        </div>
+                                    )}
+                                    <div className="tooltip-row">
+                                        <span className="tooltip-icon">⛳</span>
+                                        <span>{rental.holes} hull</span>
+                                    </div>
+                                    <div className="tooltip-row">
+                                        <span className="tooltip-icon">⏰</span>
+                                        <span>
+                                            {startTime.toLocaleTimeString('nb-NO', { hour: '2-digit', minute: '2-digit' })}
+                                            {' - '}
+                                            {endTime.toLocaleTimeString('nb-NO', { hour: '2-digit', minute: '2-digit' })}
+                                        </span>
+                                    </div>
+                                    <div className="tooltip-row">
+                                        <span className="tooltip-icon">💰</span>
+                                        <span>{rental.price} kr</span>
+                                    </div>
+                                    {rental.hasDoctorsNote && (
+                                        <div className="tooltip-note">
+                                            <span className="tooltip-icon">🏥</span>
+                                            <span>Legeerklæring</span>
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+                        );
+                    })()}
+                </div>
+            )}
         </div>
     );
 }

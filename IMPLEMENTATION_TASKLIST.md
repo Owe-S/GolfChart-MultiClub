@@ -171,20 +171,22 @@
 
 ### 2.3 Enhanced Availability Grid for Admin
 
-- [ ] Task 2.3.1: Upgrade `AvailabilityGrid.tsx`
-  - Add hover tooltips with booking details
-  - Show renter name on hover
-  - Show contact info on hover
+- [✅] Task 2.3.1: Upgrade `AvailabilityGrid.tsx` *(Completed Dec 4, 2025)*
+  - ✅ Add hover tooltips with booking details
+  - ✅ Show renter name on hover
+  - ✅ Show contact info (phone, email) on hover
+  - ✅ Show booking time, price, holes, member status
+  - ✅ Show doctor's note indicator
 
-- [ ] Task 2.3.2: Add drag-to-select feature
+- [ ] Task 2.3.2: Add drag-to-select feature *(Deferred - Future Enhancement)*
   - Multi-time slot selection
   - Quick multi-slot booking
 
-- [ ] Task 2.3.3: Support multi-cart booking
+- [ ] Task 2.3.3: Support multi-cart booking *(Deferred - Future Enhancement)*
   - Select multiple carts at once
   - Create batch bookings
 
-- [ ] Task 2.3.4: Add export to calendar
+- [ ] Task 2.3.4: Add export to calendar *(Deferred - Future Enhancement)*
   - Export selected booking as iCal
   - Add to Google/Outlook calendar link
 
