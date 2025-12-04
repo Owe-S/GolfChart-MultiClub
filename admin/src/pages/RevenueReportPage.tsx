@@ -3,6 +3,8 @@ import { collection, query, where, getDocs, Timestamp } from 'firebase/firestore
 import { db } from '../firebase';
 import type { Rental } from '../types';
 import { LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
+import Alert from '../components/Alert';
+import { useError } from '../hooks/useError';
 import '../ski-gk-theme.css';
 
 type DateRange = 'week' | 'month' | 'year';
@@ -38,6 +40,9 @@ function RevenueReportPage() {
     nonMemberPercentage: 0,
     totalDiscounts: 0,
   });
+  const [exportLoading, setExportLoading] = useState(false);
+  const [exportSuccess, setExportSuccess] = useState(false);
+  const { error, setErrorMessage, clearError, handleError } = useError();
 
   useEffect(() => {
     // Set default date range based on selection
@@ -145,29 +150,43 @@ function RevenueReportPage() {
 
     } catch (error) {
       console.error('Error loading revenue data:', error);
+      handleError('Kunne ikke laste inn inntektsdata. Vennligst prøv igjen senere.');
     } finally {
       setLoading(false);
     }
   }
 
   function exportToCSV() {
-    const csvContent = [
-      ['Dato', 'Inntekt', 'Bookinger', 'Medlem Inntekt', 'Ikke-medlem Inntekt'],
-      ...revenueData.map(row => [
+    try {
+      setExportLoading(true);
+      const headers = ['Dato', 'Inntekt', 'Bookinger', 'Medlem Inntekt', 'Ikke-medlem Inntekt'];
+      const rows = revenueData.map(row => [
         row.date,
         row.revenue,
         row.bookings,
         row.memberRevenue,
         row.nonMemberRevenue
-      ])
-    ].map(row => row.join(',')).join('\n');
+      ]);
 
-    const blob = new Blob([csvContent], { type: 'text/csv' });
-    const url = window.URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `inntektsrapport-${startDate}-${endDate}.csv`;
-    a.click();
+      const csvContent = [
+        headers.join(','),
+        ...rows.map(row => row.join(','))
+      ].join('\n');
+
+      const blob = new Blob([csvContent], { type: 'text/csv' });
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `inntektsrapport-${startDate}-${endDate}.csv`;
+      a.click();
+      
+      setExportSuccess(true);
+      setTimeout(() => setExportSuccess(false), 3000);
+    } catch (err) {
+      handleError(err);
+    } finally {
+      setExportLoading(false);
+    }
   }
 
   function exportToPDF() {
@@ -259,17 +278,48 @@ function RevenueReportPage() {
       <div className="page-header">
         <h1 className="page-title">💰 Inntektsrapport</h1>
         <div className="export-actions">
-          <button className="btn-secondary" onClick={exportToCSV} disabled={loading || revenueData.length === 0}>
-            📄 Eksporter CSV
+          <button 
+            className="btn-secondary" 
+            onClick={exportToCSV} 
+            disabled={loading || revenueData.length === 0 || exportLoading}
+          >
+            {exportLoading ? '⏳ Eksporterer...' : '📄 Eksporter CSV'}
           </button>
-          <button className="btn-secondary" onClick={exportToPDF} disabled={loading || revenueData.length === 0}>
+          <button 
+            className="btn-secondary" 
+            onClick={exportToPDF} 
+            disabled={loading || revenueData.length === 0}
+          >
             📑 Eksporter PDF
           </button>
-          <button className="btn-secondary" onClick={() => alert('E-post funksjonalitet kommer snart!')} disabled={loading || revenueData.length === 0}>
+          <button 
+            className="btn-secondary" 
+            onClick={() => setErrorMessage('E-post funksjonalitet kommer snart!', 'Denne funksjonen vil være tilgjengelig i neste versjon.')}
+            disabled={loading || revenueData.length === 0}
+          >
             📧 Send på e-post
           </button>
         </div>
       </div>
+
+      {/* Alerts */}
+      {error && (
+        <Alert 
+          type="error" 
+          title={error.message} 
+          message={error.details}
+          onClose={clearError}
+        />
+      )}
+
+      {exportSuccess && (
+        <Alert 
+          type="success" 
+          title="Eksport vellykket" 
+          message="CSV-filen er lastet ned."
+          onClose={() => setExportSuccess(false)}
+        />
+      )}
 
       {/* Date Range Controls */}
       <div className="report-controls">
@@ -431,6 +481,15 @@ function RevenueReportPage() {
             </div>
           </div>
         </>
+      )}
+
+      {error && (
+        <Alert 
+          type="error" 
+          title={error.message}
+          message={error.details}
+          onClose={clearError} 
+        />
       )}
     </div>
   );
