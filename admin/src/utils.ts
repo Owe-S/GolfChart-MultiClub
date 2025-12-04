@@ -22,7 +22,7 @@ export function calculatePrice(
 }
 
 export function getRentalBlockEnd(rental: Rental): Date {
-    const startTime = new Date(rental.startTime);
+    const startTime = rental.startTime.toDate();
     const totalDuration = PLAY_DURATION[rental.holes] + CHARGE_DURATION[rental.holes];
     return new Date(startTime.getTime() + totalDuration * 60 * 1000);
 }

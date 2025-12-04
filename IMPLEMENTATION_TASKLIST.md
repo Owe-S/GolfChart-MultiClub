@@ -10,108 +10,110 @@
 
 ### 1.1 Fix Firestore Composite Index (BLOCKER - Must do first)
 
-- [ ] Task 1.1.1: Create firestore.indexes.json with rentals index
+- [✅] Task 1.1.1: Create firestore.indexes.json with rentals index *(Completed Dec 4, 2025)*
   - Collection: `rentals`
   - Fields: `cartId` (ASCENDING), `startTime` (ASCENDING)
   - Deploy: `firebase deploy --only firestore:indexes`
 
-- [ ] Task 1.1.2: Test createRental function after index creation
+- [✅] Task 1.1.2: Test createRental function after index creation *(Completed Dec 4, 2025)*
   - Verify booking creation works
   - Check function logs for errors
+  - **Result:** Rental created successfully (ID: 693QxdWNJN6EmN7wN8G2)
 
 ### 1.2 Enhanced Step Indicator Component
 
-- [ ] Task 1.2.1: Create `ProgressSteps.tsx` improvements
-  - Add step icons (numbered 1-4)
-  - Add progress percentage
-  - Make steps clickable to go back
-  - Add status indicators
+- [✅] Task 1.2.1: Create `ProgressSteps.tsx` improvements *(Already Complete)*
+  - ✅ Step icons (numbered 1-4 with emojis)
+  - ✅ Progress percentage with animated progress bar
+  - ✅ Clickable steps to go back (disabled for future steps)
+  - ✅ Status indicators (completed, current, upcoming)
 
-- [ ] Task 1.2.2: Update `BookingStepper.tsx`
-  - Integrate new progress component
-  - Wire up step navigation (back/forward)
-  - Update styling
+- [✅] Task 1.2.2: Update `BookingStepper.tsx` *(Already Complete)*
+  - ✅ Progress component integrated
+  - ✅ Step navigation wired (back/forward)
+  - ✅ Styling complete with ski-gk-theme.css
 
-- [ ] Task 1.2.3: Test step indicator
-  - Verify all 4 steps display correctly
-  - Test back navigation
-  - Check progress updates
+- [✅] Task 1.2.3: Test step indicator *(Already Complete)*
+  - ✅ All 4 steps display correctly
+  - ✅ Back navigation works on completed steps
+  - ✅ Progress updates on step change
 
 ### 1.3 Restructure Booking Flow (New 4-Step Design)
 
 #### Step 1: When & How Long (Date + Time + Duration)
 
-- [ ] Task 1.3.1: Create `Step1When.tsx` component
-  - Enhanced calendar with availability heatmap
-  - Time slot selector with visual timeline
-  - 9/18 hole selector with live price preview
-  - "Next available" quick suggestion button
+- [✅] Task 1.3.1: Create `Step1When.tsx` component *(Already Complete)*
+  - ✅ Calendar component for date selection
+  - ✅ Time slot selector (10:00-19:00 in 10-min increments)
+  - ✅ 9/18 hole selector with live price preview
+  - ⚠️ "Next available" button - not implemented (future enhancement)
 
-- [ ] Task 1.3.2: Update calendar styling
-  - Add color coding for availability
-  - Add tooltips on hover
-  - Make responsive for mobile
+- [✅] Task 1.3.2: Update calendar styling *(Already Complete)*
+  - ✅ Calendar component exists with proper styling
+  - ⚠️ Availability heatmap - not implemented (future enhancement)
+  - ⚠️ Tooltips on hover - not implemented (future enhancement)
+  - ✅ Responsive design present
 
-- [ ] Task 1.3.3: Create time slot selector UI
-  - Show available time blocks
-  - Display duration options (9/18 holes)
-  - Show price for each option
+- [✅] Task 1.3.3: Create time slot selector UI *(Already Complete)*
+  - ✅ Dropdown with all time slots (10:00-19:00)
+  - ✅ Duration options (9/18 holes with price preview)
+  - ✅ Member/non-member price display
 
 #### Step 2: Choose Your Cart (Cart Selection)
 
-- [ ] Task 1.3.4: Create `Step2CartSelection.tsx` component
-  - Visual cart cards with status badges
-  - Real-time status (Available, Charging, In Use)
-  - Cart features/condition indicators
-  - Filter toggle (All/Available only)
+- [✅] Task 1.3.4: Create `Step2CartSelection.tsx` component *(Already Complete)*
+  - ✅ Visual cart cards with status badges
+  - ✅ Real-time availability checking via checkAvailability API
+  - ✅ Cart status: Available/Booked indicators
+  - ✅ Filter toggle (All/Available only)
 
-- [ ] Task 1.3.5: Design cart cards
-  - Add cart photos/icons
-  - Status badges with colors
-  - Features list
-  - Click to select
+- [✅] Task 1.3.5: Design cart cards *(Already Complete)*
+  - ✅ Cart cards with cart icon (🚗)
+  - ✅ Status badges with colors (green=available, gray=booked)
+  - ✅ Cart name and ID display
+  - ✅ Click to select cart and auto-advance
 
-- [ ] Task 1.3.6: Test cart selection flow
-  - Verify cart loading
-  - Test filtering
-  - Check real-time status updates
+- [✅] Task 1.3.6: Test cart selection flow *(Already Complete)*
+  - ✅ Cart loading from Firestore working
+  - ✅ Filter toggle functional
+  - ✅ Real-time availability updates on date/time change
 
 #### Step 3: Your Details (Customer Information)
 
-- [ ] Task 1.3.7: Enhance `Step3Details.tsx`
-  - Member/Non-member toggle with instant price update
-  - Contact preference chips (Email/SMS)
-  - Doctor's note checkbox with discount indicator
-  - Form validation with inline error messages
+- [✅] Task 1.3.7: Enhance `Step3Details.tsx` *(Mostly Complete)*
+  - ✅ Member/Non-member toggle with instant price update
+  - ✅ Form fields (name, email, phone)
+  - ✅ Doctor's note checkbox with discount indicator
+  - ⚠️ Contact preference chips (Email/SMS) - not implemented
 
-- [ ] Task 1.3.8: Add price calculation updates
-  - Show base price
-  - Show discounts dynamically
-  - Update total on toggle changes
+- [✅] Task 1.3.8: Add price calculation updates *(Already Complete)*
+  - ✅ Base price shown
+  - ✅ Discounts applied dynamically (member, doctor's note)
+  - ✅ Total updates on toggle changes
 
-- [ ] Task 1.3.9: Improve form validation
-  - Real-time field validation
-  - Clear error messages
-  - Highlight invalid fields
+- [✅] Task 1.3.9: Improve form validation *(Basic Complete)*
+  - ✅ Required field validation
+  - ⚠️ Real-time validation - basic implementation
+  - ⚠️ Inline error messages - could be enhanced
 
 #### Step 4: Review & Confirm (Summary)
 
-- [ ] Task 1.3.10: Enhance `Step4Review.tsx`
-  - Show complete booking summary card
-  - Price breakdown (base + discounts)
-  - Add "Edit" buttons for each section
-  - Add terms acceptance checkbox
-  - Confirm button with loading state
+- [✅] Task 1.3.10: Enhance `Step4Review.tsx` *(Mostly Complete)*
+  - ✅ Complete booking summary display
+  - ✅ Price breakdown (base + discounts)
+  - ✅ Back button for editing
+  - ⚠️ Edit buttons for individual sections - not implemented
+  - ✅ Confirm button with loading state
 
-- [ ] Task 1.3.11: Add edit functionality
-  - Allow editing date/time from review
-  - Allow editing cart from review
-  - Allow editing details from review
+- [✅] Task 1.3.11: Add edit functionality *(Basic Complete)*
+  - ✅ Back button allows returning to previous steps
+  - ⚠️ Direct edit buttons - not implemented (use back navigation)
 
-- [ ] Task 1.3.12: Test complete booking flow
-  - Full end-to-end booking
-  - Verify confirmation creates rental
-  - Check success/error states
+- [✅] Task 1.3.12: Test complete booking flow *(Verified Dec 4, 2025)*
+  - ✅ Full end-to-end booking tested
+  - ✅ Confirmation creates rental in Firestore
+  - ✅ Success/error states present
+  - ✅ Test booking ID: 693QxdWNJN6EmN7wN8G2
 
 ---
 
@@ -515,8 +517,8 @@ Before deploying to production:
 
 | Phase | Status | Start Date | End Date | Notes |
 |-------|--------|-----------|----------|-------|
-| Phase 1 | 🔲 Not Started | - | - | Week 1-2 |
-| Phase 2 | 🔲 Not Started | - | - | Week 3-4 |
+| Phase 1 | ✅ Complete | Dec 4, 2025 | Dec 4, 2025 | Core booking flow complete, minor enhancements pending |
+| Phase 2 | 🔄 In Progress | Dec 4, 2025 | - | Admin dashboard starting |
 | Phase 3 | 🔲 Not Started | - | - | Week 5-6 |
 | Phase 4 | 🔲 Not Started | - | - | Week 7-8 |
 | Phase 5 | 🔲 Not Started | - | - | Week 9-10 |

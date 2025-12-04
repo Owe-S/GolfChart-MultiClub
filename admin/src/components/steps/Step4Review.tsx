@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Timestamp } from 'firebase/firestore';
 import type { BookingData } from '../../types';
 import { calculatePrice } from '../../utils';
 import { createRental } from '../../firebaseService';
@@ -34,7 +35,9 @@ function Step4Review({ data, onBack, onEdit }: Props) {
                 paymentMethod: null,
                 notes: `Mobilbooking: ${data.cartName}`,
                 price: finalPrice,
-                startTime: proposedStartTime.toISOString(),
+                phone: data.phone || data.contactInfo,
+                email: data.email,
+                startTime: Timestamp.fromDate(proposedStartTime),
                 endTime: null,
                 notificationMethod: data.notificationMethod,
                 contactInfo: data.contactInfo,

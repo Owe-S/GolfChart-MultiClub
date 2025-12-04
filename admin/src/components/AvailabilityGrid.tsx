@@ -83,7 +83,7 @@ function AvailabilityGrid({ selectedDate, onSlotSelect }: AvailabilityGridProps)
                     const conflictingRental = rentals.find(rental => {
                         if (rental.cartId !== cart.id) return false;
 
-                        const rentalStart = new Date(rental.startTime);
+                        const rentalStart = rental.startTime.toDate();
                         const rentalDuration = PLAY_DURATION[rental.holes] + CHARGE_DURATION[rental.holes];
                         const rentalEnd = new Date(rentalStart.getTime() + rentalDuration * 60 * 1000);
 
@@ -95,7 +95,7 @@ function AvailabilityGrid({ selectedDate, onSlotSelect }: AvailabilityGridProps)
 
                     if (conflictingRental) {
                         // Determine if it's booked (playing) or charging
-                        const rentalStart = new Date(conflictingRental.startTime);
+                        const rentalStart = conflictingRental.startTime.toDate();
                         const playEnd = new Date(rentalStart.getTime() + PLAY_DURATION[conflictingRental.holes] * 60 * 1000);
 
                         const status = slotTime < playEnd ? 'booked' : 'charging';

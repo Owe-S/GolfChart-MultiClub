@@ -37,7 +37,9 @@ export interface Rental {
     price: number;
     paymentMethod: PaymentMethod | null;
     notes?: string;
-    startTime: string; // ISO string
+    phone: string; // Phone number
+    email?: string; // Email address
+    startTime: import('firebase/firestore').Timestamp; // Firestore Timestamp
     endTime?: string | null; // ISO string
     notificationMethod: 'email' | 'sms';
     contactInfo: string;
@@ -81,6 +83,8 @@ export interface BookingData {
     hasDoctorsNote: boolean;
     notificationMethod: NotificationMethod;
     contactInfo: string;
+    phone?: string;
+    email?: string;
 }
 
 export const INITIAL_DATA: BookingData = {
@@ -94,5 +98,7 @@ export const INITIAL_DATA: BookingData = {
     membershipNumber: '',
     hasDoctorsNote: false,
     notificationMethod: 'email',
-    contactInfo: ''
+    contactInfo: '',
+    phone: '',
+    email: ''
 };
