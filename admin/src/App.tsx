@@ -7,6 +7,7 @@ import BookingsListPage from './pages/BookingsListPage';
 import CartsPage from './pages/CartsPage';
 import ReportsPage from './pages/ReportsPage';
 import RevenueReportPage from './pages/RevenueReportPage';
+import BookingAnalyticsPage from './pages/BookingAnalyticsPage';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path="carts" element={<CartsPage />} />
           <Route path="reports" element={<ReportsPage />} />
           <Route path="reports/revenue" element={<RevenueReportPage />} />
+          <Route path="reports/analytics" element={<BookingAnalyticsPage />} />
         </Route>
       </Routes>
     </BrowserRouter>

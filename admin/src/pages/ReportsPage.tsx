@@ -18,12 +18,14 @@ function ReportsPage() {
           </div>
         </Link>
 
-        <div className="report-card">
-          <div className="report-icon">📊</div>
-          <h3>Bookinganalyse</h3>
-          <p>Populære tider og mønstre</p>
-          <button className="btn-primary">Generer Rapport</button>
-        </div>
+        <Link to="/reports/analytics" className="report-card-link">
+          <div className="report-card">
+            <div className="report-icon">📊</div>
+            <h3>Bookinganalyse</h3>
+            <p>Populære tider og mønstre</p>
+            <button className="btn-primary">Åpne Rapport</button>
+          </div>
+        </Link>
 
         <div className="report-card">
           <div className="report-icon">🚗</div>
