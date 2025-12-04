@@ -1,4 +1,4 @@
-site_name: GolfChart Admin Dashboard Documentation
+site_name: GolfChart - Golf Cart Booking System
 theme:
   name: material
   palette:
@@ -7,22 +7,10 @@ theme:
     accent: light-green
 nav:
   - Home: index.md
-  - Getting Started:
-    - Local Development: getting-started/local-dev.md
-    - Firebase Setup: getting-started/firebase-setup.md
-    - Firestore Setup: getting-started/firestore-setup.md
-  - Architecture:
-    - System Overview: architecture/system.md
-    - Data Model: architecture/data-model.md
-    - Multi-Tenant: architecture/multi-tenant.md
-    - Security: architecture/security.md
-  - Admin UI:
-    - Booking Flow: admin-ui/booking-flow.md
-    - UI Improvements: admin-ui/ui-improvements.md
-  - API Reference:
-    - Overview: api/overview.md
-    - HTTP Functions: api/http-functions.md
-  - Deployment:
-    - Hosting Architecture: deployment/hosting-architecture.md
-    - CSS Fixes (Dec 2025): deployment/css-fixes-dec2025.md
-    - GDPR Compliance: deployment/gdpr-compliance.md
+  - Overview:
+    - Features: FEATURES.md
+    - Architecture: ARCHITECTURE.md
+    - Getting Started: getting-started/local-dev.md
+  - Developer Guide: DEVELOPER_GUIDE.md
+  - Changelog: CHANGELOG.md
+  - README: README.md
