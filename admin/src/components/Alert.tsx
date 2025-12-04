@@ -28,17 +28,6 @@ function Alert({ type, title, message, onClose, showIcon = true }: AlertProps) {
           className="alert-close"
           onClick={onClose}
           aria-label="Close alert"
-          style={{ 
-            background: 'none', 
-            border: 'none', 
-            fontSize: '1.25rem', 
-            cursor: 'pointer',
-            padding: 0,
-            minHeight: 'auto',
-            minWidth: 'auto',
-            color: 'inherit',
-            opacity: 0.7
-          }}
         >
           ✕
         </button>

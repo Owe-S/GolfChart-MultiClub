@@ -186,10 +186,9 @@ function RentalStatisticsPage() {
             </div>
           </div>
 
-          {/* eslint-disable-next-line */}
-          <div style={{ marginTop: '30px' }}>
+          <div className="player-stats-header">
             <h3>Top 5 aktive spillere</h3>
-            <table className="bookings-table" style={{ marginTop: '15px' }}>
+            <table className="bookings-table player-stats-table">
               <thead>
                 <tr>
                   <th>Spiller-ID</th>
@@ -215,7 +214,7 @@ function RentalStatisticsPage() {
                     <td><strong>{player.totalCost} kr</strong></td>
                     <td>
                       {player.cancellations > 0 && (
-                        <span className="status-badge cancelled" style={{ fontSize: '11px' }}>
+                        <span className="status-badge cancelled cart-utilization-small">
                           {player.cancellations}
                         </span>
                       )}
@@ -263,7 +262,7 @@ function RentalStatisticsPage() {
                     </td>
                     <td>
                       {player.totalHoles} 
-                      <span style={{ color: '#999', fontSize: '0.9em', marginLeft: '5px' }}>
+                      <span className="stat-average">
                         ({(player.totalHoles / player.totalRentals).toFixed(1)} gjennomsnitt)
                       </span>
                     </td>
@@ -276,7 +275,7 @@ function RentalStatisticsPage() {
                           {player.cancellations}
                         </span>
                       ) : (
-                        <span style={{ color: '#999' }}>-</span>
+                        <span className="stat-dash">-</span>
                       )}
                     </td>
                     <td>
@@ -327,20 +326,12 @@ function RentalStatisticsPage() {
                       <strong>{cart.totalRentals}</strong>
                     </td>
                     <td>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                        <div style={{ 
-                          width: '100px', 
-                          height: '8px', 
-                          backgroundColor: '#e0e0e0',
-                          borderRadius: '4px',
-                          overflow: 'hidden'
-                        }}>
-                          <div style={{
-                            width: `${Math.min(cart.utilization, 100)}%`,
-                            height: '100%',
-                            backgroundColor: '#00a86b',
-                            transition: 'width 0.3s'
-                          }} />
+                      <div className="progress-container">
+                        <div className="progress-track">
+                          {/* Using CSS custom property for dynamic width */}
+                          <div className="progress-bar"
+                            style={{ '--progress-width': `${Math.min(cart.utilization, 100)}%` } as React.CSSProperties}
+                          />
                         </div>
                         <span>{cart.utilization.toFixed(0)}%</span>
                       </div>

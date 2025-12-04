@@ -219,25 +219,16 @@ function BookingsListPage() {
         <div className="modal-overlay" onClick={() => setCancelModalOpen(false)}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
             <h2>Avslut booking</h2>
-            <p style={{ color: '#666', marginBottom: '20px' }}>
+            <p className="modal-cancel-reason">
               Vennligst fyll inn årsaken til avslutning:
             </p>
             <textarea
               placeholder="Årsak til avslutning (f.eks. spiller er syk, værforhold, etc.)"
               value={cancellationReason}
               onChange={(e) => setCancellationReason(e.target.value)}
-              style={{
-                width: '100%',
-                padding: '10px',
-                borderRadius: '4px',
-                border: '1px solid #ddd',
-                fontFamily: 'inherit',
-                fontSize: '14px',
-                minHeight: '80px',
-                resize: 'vertical',
-              }}
+              className="modal-textarea"
             />
-            <div style={{ marginTop: '20px', display: 'flex', gap: '10px', justifyContent: 'flex-end' }}>
+            <div className="modal-button-container">
               <button
                 className="btn-secondary"
                 onClick={() => {
@@ -248,9 +239,8 @@ function BookingsListPage() {
                 Avbryt
               </button>
               <button
-                className="btn-primary"
+                className="btn-primary btn-primary-danger"
                 onClick={handleCancelRental}
-                style={{ backgroundColor: '#d32f2f' }}
               >
                 Avslut booking
               </button>

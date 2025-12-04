@@ -9,18 +9,24 @@ interface SkeletonLoaderProps {
 
 function SkeletonLoader({ type = 'card', width = '100%', height = '40px', count = 1 }: SkeletonLoaderProps) {
   const items = Array.from({ length: count }, (_, i) => i);
+  
+  const getBorderRadius = () => {
+    if (type === 'circle') return '50%';
+    if (type === 'card') return '8px';
+    return '4px';
+  };
 
   return (
     <>
       {items.map((index) => (
         <div
           key={index}
-          className="skeleton-loader"
+          className="skeleton-loader skeleton-loader-dynamic"
           style={{
-            width,
-            height,
-            borderRadius: type === 'circle' ? '50%' : type === 'card' ? '8px' : '4px',
-          }}
+            '--skeleton-width': width,
+            '--skeleton-height': height,
+            '--skeleton-radius': getBorderRadius(),
+          } as React.CSSProperties}
         />
       ))}
     </>

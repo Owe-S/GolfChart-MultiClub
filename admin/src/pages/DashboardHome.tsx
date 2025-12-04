@@ -118,7 +118,7 @@ function DashboardHome() {
           <div className="stat-content">
             <div className="stat-value">
               {loading ? (
-                <span className="skeleton-loader" style={{ width: '40px', height: '28px', display: 'inline-block' }} />
+                <span className={`skeleton-loader skeleton-inline skeleton-40x28`} />
               ) : (
                 stats.activeRentals
               )}
@@ -132,7 +132,7 @@ function DashboardHome() {
           <div className="stat-content">
             <div className="stat-value">
               {loading ? (
-                <span className="skeleton-loader" style={{ width: '40px', height: '28px', display: 'inline-block' }} />
+                <span className={`skeleton-loader skeleton-inline skeleton-40x28`} />
               ) : (
                 stats.completedToday
               )}
@@ -146,7 +146,7 @@ function DashboardHome() {
           <div className="stat-content">
             <div className="stat-value">
               {loading ? (
-                <span className="skeleton-loader" style={{ width: '60px', height: '28px', display: 'inline-block' }} />
+                <span className={`skeleton-loader skeleton-inline skeleton-60x28`} />
               ) : (
                 `${stats.revenueToday} kr`
               )}
@@ -160,7 +160,7 @@ function DashboardHome() {
           <div className="stat-content">
             <div className="stat-value">
               {loading ? (
-                <span className="skeleton-loader" style={{ width: '50px', height: '28px', display: 'inline-block' }} />
+                <span className={`skeleton-loader skeleton-inline skeleton-50x28`} />
               ) : (
                 stats.nextBookingTime || 'Ingen'
               )}

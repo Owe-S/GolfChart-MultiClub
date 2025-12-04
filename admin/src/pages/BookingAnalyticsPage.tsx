@@ -314,12 +314,9 @@ function BookingAnalyticsPage() {
               <h3 className="chart-title">Populære tider (heatmap)</h3>
               <p className="chart-description">
                 Antall bookinger per time. 
-                {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
-                <span className="legend-item" style={{ color: '#00A86B' }}>● Rolig</span>
-                {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
-                <span className="legend-item" style={{ color: '#FFD700' }}>● Opptatt</span>
-                {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
-                <span className="legend-item" style={{ color: '#C5221F' }}>● Veldig opptatt</span>
+                <span className="legend-item legend-item-green">● Rolig</span>
+                <span className="legend-item legend-item-gold">● Opptatt</span>
+                <span className="legend-item legend-item-red">● Veldig opptatt</span>
               </p>
               <ResponsiveContainer width="100%" height={400}>
                 <BarChart data={timeSlotData}>
@@ -367,12 +364,10 @@ function BookingAnalyticsPage() {
                       <span className="distribution-value">{item.percentage.toFixed(1)}%</span>
                     </div>
                     <div className="distribution-bar-container">
+                      {/* Using CSS custom property for dynamic width */}
                       <div 
-                        className="distribution-bar"
-                        style={{ 
-                          width: `${item.percentage}%`,
-                          background: index === 0 ? '#00A86B' : '#0066CC'
-                        }}
+                        className={`distribution-bar ${index === 0 ? 'distribution-bar-green' : ''}`}
+                        style={{ '--bar-width': `${item.percentage}%` } as React.CSSProperties}
                       />
                     </div>
                     <div className="distribution-count">{item.count} bookinger</div>
