@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../firebase';
 import type { GolfCart } from '../types';
+import SkeletonCard from '../components/SkeletonCard';
+import EmptyStateCard from '../components/EmptyStateCard';
 import '../ski-gk-theme.css';
 
 function CartsPage() {
@@ -30,9 +32,14 @@ function CartsPage() {
   if (loading) {
     return (
       <div className="page-container">
-        <div className="loading-container">
-          <div className="loading-spinner">⏳</div>
-          <p>Laster golfbiler...</p>
+        <div className="page-header">
+          <h1 className="page-title">Golfbiler</h1>
+          <button className="btn-primary">➕ Legg til Bil</button>
+        </div>
+        <div className="carts-grid">
+          <SkeletonCard />
+          <SkeletonCard />
+          <SkeletonCard />
         </div>
       </div>
     );
@@ -46,19 +53,20 @@ function CartsPage() {
       </div>
 
       <div className="carts-grid">
-        {carts.map((cart) => (
-          <div key={cart.id} className="cart-management-card">
-            <div className="cart-header">
-              <div className="cart-icon">🚗</div>
-              <div className="cart-info">
-                <h3>{cart.name}</h3>
-                <p className="cart-id">ID: {cart.id}</p>
+        {carts.length > 0 ? (
+          carts.map((cart) => (
+            <div key={cart.id} className="cart-management-card">
+              <div className="cart-header">
+                <div className="cart-icon">🚗</div>
+                <div className="cart-info">
+                  <h3>{cart.name}</h3>
+                  <p className="cart-id">ID: {cart.id}</p>
+                </div>
               </div>
-            </div>
-            <div className="cart-status-section">
-              <div className="status-indicator available">
-                <span className="status-dot">●</span>
-                <span>Tilgjengelig</span>
+              <div className="cart-status-section">
+                <div className="status-indicator available">
+                  <span className="status-dot">●</span>
+                  <span>Tilgjengelig</span>
               </div>
             </div>
             <div className="cart-actions">
@@ -66,15 +74,15 @@ function CartsPage() {
               <button className="btn-secondary">📊 Statistikk</button>
             </div>
           </div>
-        ))}
+          ))
+        ) : (
+          <EmptyStateCard 
+            icon="🚗"
+            title="Ingen golfbiler funnet"
+            message="Ingen golfbiler registrert. Legg til en ny bil for å komme i gang."
+          />
+        )}
       </div>
-
-      {carts.length === 0 && (
-        <div className="empty-state-card">
-          <div className="empty-state-icon">🚗</div>
-          <p>Ingen golfbiler funnet</p>
-        </div>
-      )}
     </div>
   );
 }

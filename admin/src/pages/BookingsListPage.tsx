@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import { collection, query, orderBy, onSnapshot } from 'firebase/firestore';
 import { db } from '../firebase';
 import type { Rental } from '../types';
+import SkeletonTable from '../components/SkeletonTable';
+import EmptyStateCard from '../components/EmptyStateCard';
 import '../ski-gk-theme.css';
 
 function BookingsListPage() {
@@ -48,10 +50,10 @@ function BookingsListPage() {
   if (loading) {
     return (
       <div className="page-container">
-        <div className="loading-container">
-          <div className="loading-spinner">⏳</div>
-          <p>Laster bookinger...</p>
+        <div className="page-header">
+          <h1 className="page-title">Alle Bookinger</h1>
         </div>
+        <SkeletonTable rows={8} />
       </div>
     );
   }
@@ -89,19 +91,20 @@ function BookingsListPage() {
       </div>
 
       <div className="bookings-table-container">
-        <table className="bookings-table">
-          <thead>
-            <tr>
-              <th>Dato & Tid</th>
-              <th>Bil</th>
-              <th>Kunde</th>
-              <th>Kontakt</th>
-              <th>Hull</th>
-              <th>Pris</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <tbody>
+        {filteredRentals.length > 0 ? (
+          <table className="bookings-table">
+            <thead>
+              <tr>
+                <th>Dato & Tid</th>
+                <th>Bil</th>
+                <th>Kunde</th>
+                <th>Kontakt</th>
+                <th>Hull</th>
+                <th>Pris</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
             {filteredRentals.map((rental) => {
               const startTime = rental.startTime.toDate();
               const now = new Date();
@@ -153,13 +156,13 @@ function BookingsListPage() {
               );
             })}
           </tbody>
-        </table>
-
-        {filteredRentals.length === 0 && (
-          <div className="empty-state-card">
-            <div className="empty-state-icon">📋</div>
-            <p>Ingen bookinger funnet</p>
-          </div>
+          </table>
+        ) : (
+          <EmptyStateCard 
+            icon="📋"
+            title="Ingen bookinger funnet"
+            message="Ingen bookinger for valgt filter. Dette er ikke en feil."
+          />
         )}
       </div>
     </div>

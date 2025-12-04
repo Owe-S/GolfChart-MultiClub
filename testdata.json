@@ -1,0 +1,59 @@
+{
+  "carts": [
+    {
+      "batteryLevel": 95,
+      "location": "Clubhouse",
+      "name": "Cart 1",
+      "status": "rented",
+      "id": 1
+    },
+    {
+      "batteryLevel": 88,
+      "location": "Clubhouse",
+      "name": "Cart 2",
+      "status": "rented",
+      "id": 2
+    },
+    {
+      "batteryLevel": 100,
+      "location": "Storage",
+      "name": "Cart 3",
+      "status": "available",
+      "id": 3
+    }
+  ],
+  "rentals": [
+    {
+      "startTime": "2025-12-04T15:23:01.1682379+01:00",
+      "endTime": "2025-12-04T19:23:01.1713490+01:00",
+      "hasDoctorsNote": false,
+      "isMember": true,
+      "contactInfo": "john@example.com",
+      "cartId": 1,
+      "status": "active",
+      "createdAt": "2025-12-04T15:23:01.1773651+01:00",
+      "price": 450,
+      "notes": "Test rental",
+      "holes": 18,
+      "renterName": "John Doe",
+      "notificationMethod": "email",
+      "membershipNumber": "SKI-001"
+    },
+    {
+      "startTime": "2025-12-04T17:23:01.1773907+01:00",
+      "endTime": "2025-12-04T19:23:01.1774505+01:00",
+      "hasDoctorsNote": true,
+      "isMember": false,
+      "contactInfo": "555-0123",
+      "cartId": 2,
+      "status": "active",
+      "createdAt": "2025-12-04T15:23:01.1774594+01:00",
+      "price": 250,
+      "notes": "With doctors note",
+      "holes": 9,
+      "renterName": "Jane Smith",
+      "notificationMethod": "sms",
+      "membershipNumber": null
+    }
+  ]
+}

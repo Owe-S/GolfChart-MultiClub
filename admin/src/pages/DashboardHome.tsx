@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import { collection, onSnapshot } from 'firebase/firestore';
 import { db } from '../firebase';
 import type { Rental } from '../types';
+import SkeletonCard from '../components/SkeletonCard';
+import EmptyStateCard from '../components/EmptyStateCard';
 import '../ski-gk-theme.css';
 
 interface DashboardStats {
@@ -95,17 +97,6 @@ function DashboardHome() {
     return () => unsubscribe();
   }, []);
 
-  if (loading) {
-    return (
-      <div className="dashboard-container">
-        <div className="dashboard-loading">
-          <div className="loading-spinner">⏳</div>
-          <p>Laster dashboard...</p>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div className="dashboard-container">
       <div className="dashboard-header">
@@ -120,12 +111,18 @@ function DashboardHome() {
         </p>
       </div>
 
-      {/* Stats Cards */}
+      {/* Stats Cards - Always visible with skeleton loading */}
       <div className="stats-grid">
         <div className="stat-card active-rentals">
           <div className="stat-icon">🚗</div>
           <div className="stat-content">
-            <div className="stat-value">{stats.activeRentals}</div>
+            <div className="stat-value">
+              {loading ? (
+                <span className="skeleton-loader" style={{ width: '40px', height: '28px', display: 'inline-block' }} />
+              ) : (
+                stats.activeRentals
+              )}
+            </div>
             <div className="stat-label">Aktive Utleier</div>
           </div>
         </div>
@@ -133,7 +130,13 @@ function DashboardHome() {
         <div className="stat-card completed-today">
           <div className="stat-icon">✅</div>
           <div className="stat-content">
-            <div className="stat-value">{stats.completedToday}</div>
+            <div className="stat-value">
+              {loading ? (
+                <span className="skeleton-loader" style={{ width: '40px', height: '28px', display: 'inline-block' }} />
+              ) : (
+                stats.completedToday
+              )}
+            </div>
             <div className="stat-label">Fullført I Dag</div>
           </div>
         </div>
@@ -141,7 +144,13 @@ function DashboardHome() {
         <div className="stat-card revenue-today">
           <div className="stat-icon">💰</div>
           <div className="stat-content">
-            <div className="stat-value">{stats.revenueToday} kr</div>
+            <div className="stat-value">
+              {loading ? (
+                <span className="skeleton-loader" style={{ width: '60px', height: '28px', display: 'inline-block' }} />
+              ) : (
+                `${stats.revenueToday} kr`
+              )}
+            </div>
             <div className="stat-label">Inntekt I Dag</div>
           </div>
         </div>
@@ -150,17 +159,27 @@ function DashboardHome() {
           <div className="stat-icon">⏰</div>
           <div className="stat-content">
             <div className="stat-value">
-              {stats.nextBookingTime || 'Ingen'}
+              {loading ? (
+                <span className="skeleton-loader" style={{ width: '50px', height: '28px', display: 'inline-block' }} />
+              ) : (
+                stats.nextBookingTime || 'Ingen'
+              )}
             </div>
             <div className="stat-label">Neste Booking</div>
           </div>
         </div>
       </div>
 
-      {/* Active Rentals Section */}
+      {/* Active Rentals Section - Always visible */}
       <div className="dashboard-section">
         <h2 className="section-title">Aktive Utleier</h2>
-        {activeRentals.length > 0 ? (
+        {loading ? (
+          <div className="active-rentals-grid">
+            <SkeletonCard />
+            <SkeletonCard />
+            <SkeletonCard />
+          </div>
+        ) : activeRentals.length > 0 ? (
           <div className="active-rentals-grid">
             {activeRentals.map((rental) => (
               <div key={rental.id} className="rental-card">
@@ -194,14 +213,15 @@ function DashboardHome() {
             ))}
           </div>
         ) : (
-          <div className="empty-state-card">
-            <div className="empty-state-icon">🚗</div>
-            <p>Ingen aktive utleier akkurat nå</p>
-          </div>
+          <EmptyStateCard 
+            icon="🚗"
+            title="Ingen aktive utleier"
+            message="Ingen utleier er aktive akkurat nå. Dette er ikke en feil."
+          />
         )}
       </div>
 
-      {/* Quick Actions */}
+      {/* Quick Actions - Always visible */}
       <div className="dashboard-section">
         <h2 className="section-title">Hurtighandlinger</h2>
         <div className="quick-actions-grid">

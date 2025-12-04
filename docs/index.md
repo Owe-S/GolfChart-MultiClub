@@ -2,6 +2,14 @@
 
 Velkommen til GolfChart — et moderne, multi-klubb golfbilstyringssystem bygget på Firebase.
 
+## URLs
+
+| Application | URL |
+|-------------|-----|
+| **User App** | https://GolfChart-MultiClub.web.app |
+| **Admin Dashboard** | https://GolfChart-MultiClub.web.app/admin/ |
+| **Documentation** | https://golfbilkontroll-skigk.web.app/docs |
+
 ## Oversikt
 
 GolfChart lar golfklubber administrere utleie av golfbiler med:
@@ -15,29 +23,26 @@ GolfChart lar golfklubber administrere utleie av golfbiler med:
 
 ## Rask start
 
-```pwsh
+` pwsh
 # Installer avhengigheter
 npm install
 
-# Start lokal utvikling
+# Start lokal utvikling (User App)
+npm run dev
+
+# Start Admin Dashboard (lokal)
 cd admin
 npm run dev
 
 # Start Firebase emulatorer
 firebase emulators:start
-```
+` 
 
-## Arkitektur
+## Deployment
 
-```mermaid
-graph TB
-    A[Admin SPA] -->|Firebase Auth| B[Cloud Functions]
-    A -->|Real-time| C[Firestore]
-    B --> C
-    B -->|Varsler| D[SendGrid/Twilio]
-    B -->|AI| E[Gemini API]
-    C -->|Regler| F[Security Rules]
-```
+- **User App:** Served at / (public folder)
+- **Admin Dashboard:** Served at /admin/ (public/admin folder)
+- Se [Hosting Architecture](deployment/hosting-architecture.md) for detaljert setup
 
 ## Hovedfunksjoner
 
@@ -47,7 +52,7 @@ graph TB
 - Håndtering av golfbiler (status, vedlikehold)
 - Opprett og avslutt utleier
 - Prisredigering per klubb
-- Rapportgenerering (CSV/JSON)
+- Rapportgenerering (CSV/PDF)
 - Bruker- og rollestyring
 
 ### For ansatte
@@ -68,18 +73,12 @@ graph TB
 
 ## Neste steg
 
+- [Hosting & Architecture](deployment/hosting-architecture.md) — Forstå deployment setup
 - [Firebase oppsett](getting-started/firebase-setup.md) — Kom i gang med Firebase
 - [Lokal utvikling](getting-started/local-dev.md) — Sett opp lokalt miljø
-- [Datamodell](architecture/data-model.md) — Forstå databasestrukturen
-- [API referanse](api/overview.md) — Cloud Functions dokumentasjon
 
 ## Support
 
-For spørsmål og problemer:
-
-- **GitHub Issues:** [github.com/your-org/golfchart/issues](https://github.com/your-org/golfchart/issues)
-- **Dokumentasjon:** [golfbilkontroll-skigk.web.app/docs](https://golfbilkontroll-skigk.web.app/docs)
-
-## Lisens
+For spørsmål og problemer, se dokumentasjonen ovenfor.
 
 Copyright © 2025 GolfChart Team. Alle rettigheter reservert.
