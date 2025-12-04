@@ -146,7 +146,7 @@ function BookingsListPage() {
               const isCancelled = rental.status === 'cancelled';
 
               return (
-                <tr key={rental.id} className={isActive ? 'active-row' : ''} style={{ opacity: isCancelled ? 0.6 : 1 }}>
+                <tr key={rental.id} className={`${isActive ? 'active-row' : ''} ${isCancelled ? 'booking-row-cancelled' : ''}`}>
                   <td>
                     {startTime.toLocaleDateString('nb-NO', { 
                       day: '2-digit', 

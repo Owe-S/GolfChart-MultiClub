@@ -162,7 +162,7 @@ function BookingForm({ cart, selectedDate, onSubmit, onCancel }: BookingFormProp
               onChange={handleChange}
               required
             />
-            {playerIdError && <div style={{ color: '#d32f2f', fontSize: '0.85em', marginTop: '4px' }}>{playerIdError}</div>}
+            {playerIdError && <div className="error-text">{playerIdError}</div>}
           </div>
         </div>
 
@@ -175,7 +175,8 @@ function BookingForm({ cart, selectedDate, onSubmit, onCancel }: BookingFormProp
               type="text"
               value={cart.name}
               disabled
-              style={{ backgroundColor: '#f0f0f0', cursor: 'not-allowed' }}
+              className="disabled-input"
+              title="Selected golf cart (read-only)"
             />
           </div>
 
@@ -185,7 +186,8 @@ function BookingForm({ cart, selectedDate, onSubmit, onCancel }: BookingFormProp
               type="text"
               value={selectedDate}
               disabled
-              style={{ backgroundColor: '#f0f0f0', cursor: 'not-allowed' }}
+              className="disabled-input"
+              title="Selected date (read-only)"
             />
           </div>
 
@@ -226,7 +228,7 @@ function BookingForm({ cart, selectedDate, onSubmit, onCancel }: BookingFormProp
                 disabled
                 style={{ backgroundColor: '#f0f0f0', cursor: 'not-allowed' }}
               />
-              <small style={{ color: '#666', marginTop: '4px', display: 'block' }}>
+              <small className="helper-text">
                 {formData.holes === 18 ? '4h 20min' : '2h 10min'} spilletid
               </small>
             </div>
@@ -240,7 +242,7 @@ function BookingForm({ cart, selectedDate, onSubmit, onCancel }: BookingFormProp
                 disabled
                 style={{ backgroundColor: '#f0f0f0', cursor: 'not-allowed' }}
               />
-              <small style={{ color: '#666', marginTop: '4px', display: 'block' }}>
+              <small className="helper-text">
                 +{formData.holes === 18 ? '50' : '30'} min lading
               </small>
             </div>

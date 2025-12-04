@@ -86,7 +86,7 @@ function AvailabilityGrid({ selectedDate, carts, onCartSelect }: AvailabilityGri
   };
 
   if (loading) {
-    return <div style={{ padding: '20px', textAlign: 'center' }}>Laster...</div>;
+    return <div className="loading-container">Laster...</div>;
   }
 
   return (
@@ -95,7 +95,7 @@ function AvailabilityGrid({ selectedDate, carts, onCartSelect }: AvailabilityGri
         <table className="grid-table">
           <thead>
             <tr>
-              <th style={{ textAlign: 'left' }}>Tid</th>
+              <th className="grid-header-left">Tid</th>
               {carts.map(cart => (
                 <th key={cart.id}>{cart.name}</th>
               ))}

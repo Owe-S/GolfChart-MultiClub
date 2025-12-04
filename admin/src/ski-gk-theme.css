@@ -346,7 +346,7 @@ button, a, input, select, textarea {
   font-size: 1.25rem;
   cursor: pointer;
   padding: 0;
-  min-height: auto;
+  min-height: 0;
   min-width: auto;
   flex-shrink: 0;
   color: var(--text-secondary);
@@ -3354,7 +3354,7 @@ body {
     padding: var(--space-md);
     margin: var(--space-md) 0;
     overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
+    -webkit-overflow-scrolling: auto;
   }
 
   .bookings-table,

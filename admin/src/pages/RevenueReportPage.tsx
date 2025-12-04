@@ -346,6 +346,7 @@ function RevenueReportPage() {
         <div className="date-inputs">
           <input
             type="date"
+            title="Start date for revenue report"
             value={startDate}
             onChange={(e) => setStartDate(e.target.value)}
             className="date-input"
@@ -353,6 +354,7 @@ function RevenueReportPage() {
           <span>til</span>
           <input
             type="date"
+            title="End date for revenue report"
             value={endDate}
             onChange={(e) => setEndDate(e.target.value)}
             className="date-input"

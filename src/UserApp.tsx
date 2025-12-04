@@ -87,7 +87,7 @@ function UserApp() {
 
             <div className="grid-title">Tilgjengelige tider</div>
             {loading ? (
-              <div style={{ padding: '20px', textAlign: 'center' }}>
+              <div className="loading-container">
                 <p>Laster tilgjengelighet...</p>
               </div>
             ) : (
