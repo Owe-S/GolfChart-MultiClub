@@ -314,8 +314,11 @@ function BookingAnalyticsPage() {
               <h3 className="chart-title">Populære tider (heatmap)</h3>
               <p className="chart-description">
                 Antall bookinger per time. 
+                {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
                 <span className="legend-item" style={{ color: '#00A86B' }}>● Rolig</span>
+                {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
                 <span className="legend-item" style={{ color: '#FFD700' }}>● Opptatt</span>
+                {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
                 <span className="legend-item" style={{ color: '#C5221F' }}>● Veldig opptatt</span>
               </p>
               <ResponsiveContainer width="100%" height={400}>

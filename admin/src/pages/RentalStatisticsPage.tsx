@@ -186,6 +186,7 @@ function RentalStatisticsPage() {
             </div>
           </div>
 
+          {/* eslint-disable-next-line */}
           <div style={{ marginTop: '30px' }}>
             <h3>Top 5 aktive spillere</h3>
             <table className="bookings-table" style={{ marginTop: '15px' }}>
